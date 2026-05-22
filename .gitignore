@@ -1,0 +1,39 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# IDE
+.idea/
+**/.idea/
+
+# Local / huge inputs (regenerate with preprocess_swarm_federated.py)
+/data/UAV-Case1-Label.csv
+/dataset/
+
+# Backups from telemetry / migration
+data/swarm_processed/*.bak44
+data/swarm_processed/*.bak47
+data/swarm_processed/*.bak_migrate
+data/swarm_processed_synth*/*.bak*
+
+# Legacy
+data/processed/
+
+# Dashboard: overwritten each Flower server run (local only)
+dashboard/data/live_rounds.json
+
+# Run logs / local captures (do not publish)
+*.log
+_srv_*.log
+_fl_capture_run.txt
+_fl_c*.err
+
+# Preprocessor backups (large)
+data/swarm_processed/*.bak*
+data/**/*.bak*
+
+# Federated global weights (local runs)
+checkpoints/*.pt

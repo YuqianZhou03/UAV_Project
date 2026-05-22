@@ -1,0 +1,312 @@
+{
+  "system": {
+    "name": "FL-UAV Swarm IDS",
+    "subtitle": "Federated learning · CNN+LSTM network intrusion detection · Onboard edge IDS window features",
+    "transport": "Flower gRPC · 127.0.0.1:8080",
+    "model": "CnnLstmIDS",
+    "tensor": "16×46 per sample: 44 wireless/network features + 2 synthetic telemetry channels (battery, CPU)"
+  },
+  "theatres": [
+    {
+      "flRound": 1,
+      "cardTitle": "Beijing",
+      "cardSubtitle": "Beijing, China",
+      "region": "East Asia",
+      "gps_wgs84": "39.9042°N, 116.4074°E",
+      "latitude_deg": 39.9042,
+      "longitude_deg": 116.4074,
+      "scene": "Urban-core electromagnetic clutter: dense Wi‑Fi/BT and AP diversity; this FL round stresses DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+    },
+    {
+      "flRound": 2,
+      "cardTitle": "Sudan",
+      "cardSubtitle": "Sudan",
+      "region": "North Africa",
+      "gps_wgs84": "15.5007°N, 32.5599°E",
+      "latitude_deg": 15.5007,
+      "longitude_deg": 32.5599,
+      "scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; this round stresses long-range lossy backhaul and heterogeneous client shards."
+    },
+    {
+      "flRound": 3,
+      "cardTitle": "Tehran",
+      "cardSubtitle": "Tehran, Iran",
+      "region": "Middle East",
+      "gps_wgs84": "35.6892°N, 51.3890°E",
+      "latitude_deg": 35.6892,
+      "longitude_deg": 51.389,
+      "scene": "Urban–mountain fringe patrol: IDS windows under intermittent GNSS multipath and elevated RF interference; this round emphasizes jamming / de-authentication patterns on narrowband UAV relay links."
+    }
+  ],
+  "rounds": [
+    {
+      "id": 1,
+      "label": "Round 1 — after federation",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban-core electromagnetic clutter: dense Wi‑Fi/BT and AP diversity; this FL round stresses DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.43101286704058067,
+        "loss": 1.5668221712112427,
+        "precision_macro": 0.2753268271248469,
+        "recall_macro": 0.27863590704698216,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          46.13,
+          52.35,
+          51.52
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.725,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.714,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.272,
+          "freq_n": 160
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 4047,
+          "battery_mean": 71.46,
+          "cpu_mean": 61.5,
+          "local_eval_accuracy": 0.461462
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 4047,
+          "battery_mean": 71.33,
+          "cpu_mean": 61.51,
+          "local_eval_accuracy": 0.476285
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 4044,
+          "battery_mean": 71.43,
+          "cpu_mean": 61.51,
+          "local_eval_accuracy": 0.474308
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Round 2 — after federation",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; this round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.9466842626195975,
+        "loss": 0.53757643699646,
+        "precision_macro": 0.7488039083246879,
+        "recall_macro": 0.785895759594674,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          50.29,
+          50.27,
+          49.44
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.251,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.712,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.069,
+          "freq_n": 24
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 4044,
+          "battery_mean": 71.18,
+          "cpu_mean": 61.44,
+          "local_eval_accuracy": 0.959486
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 4042,
+          "battery_mean": 71.26,
+          "cpu_mean": 61.44,
+          "local_eval_accuracy": 0.959446
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 4040,
+          "battery_mean": 71.14,
+          "cpu_mean": 61.49,
+          "local_eval_accuracy": 0.957468
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Round 3 — after federation",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "Urban–mountain fringe patrol: IDS windows under intermittent GNSS multipath and elevated RF interference; this round emphasizes jamming / de-authentication patterns on narrowband UAV relay links."
+      },
+      "centralized": {
+        "accuracy": 0.8201913559881228,
+        "loss": 0.48556044697761536,
+        "precision_macro": 0.7967670926546001,
+        "recall_macro": 0.7194863878577535,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          47.51,
+          51.66,
+          50.83
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.203,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.714,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.036,
+          "freq_n": 24
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 4040,
+          "battery_mean": 71.62,
+          "cpu_mean": 61.5,
+          "local_eval_accuracy": 0.8
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 4040,
+          "battery_mean": 71.3,
+          "cpu_mean": 61.54,
+          "local_eval_accuracy": 0.8099
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 4040,
+          "battery_mean": 71.25,
+          "cpu_mean": 61.47,
+          "local_eval_accuracy": 0.807921
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "id": "system-topology",
+      "term": "Four-component topology",
+      "body": "(1) UAV edge clients: three DroneClient instances (client.py) over gRPC to Flower; local CNN+LSTM trains on each train_split and returns parameter deltas. (2) Federated server: FedAvg aggregation and centralized IDS evaluation on test.npz. (3) RL trust bridge: builds client states from telemetry, local eval, global loss/precision, outputs trust scores. (4) APC: fuses threat, mission criticality, trust, and resources to emit next-round participate / noise_scale / freq_n, pushed to clients via server fit config—closing the loop."
+    },
+    {
+      "id": "uav-workflow",
+      "term": "Edge security loop (one-click sim)",
+      "body": "On the Workflow page, one button calls /api/uav-workflow via dashboard/serve.py, which runs uav_workflow_sim: reads data/swarm_processed/test.npz, runs CnnLstmIDS forward (loads checkpoints/fl_global_last.pt if present; otherwise random-init demo weights). Alerts use softmax argmax vs a calibrated no-alert class. Then AdaptivePrivacyController outputs participate / noise_scale / freq_n. The UI shows a trimmed field set (scenario_side/tag, predicted_class, uplink fields); noisy aggregates and duplicate timestamps are hidden."
+    },
+    {
+      "id": "theatres",
+      "term": "Three-theatre test scenarios (scenario_config)",
+      "body": "Three anchored theatres (Beijing, Sudan, Tehran) with WGS84 and narrative for maps and logs; IDS tensors and cleaning steps are described on the Dataset tab."
+    },
+    {
+      "id": "centralized-eval",
+      "term": "Centralized evaluation",
+      "body": "The server runs one forward pass of the current global model on the pooled global holdout test.npz. It reflects post-aggregation IDS quality on unseen pooled data, unlike per-client local eval."
+    },
+    {
+      "id": "pooled-telem",
+      "term": "Pooled test telemetry means",
+      "body": "Mean over test windows of battery SOC, CPU usage, etc. Summarizes fleet load/energy context; not a class label but can be read alongside attack-driven CPU uplift."
+    },
+    {
+      "id": "rl-apc",
+      "term": "RL → APC closed loop",
+      "body": "After centralized eval, RL encodes fleet state into trust scores; APC combines threat, mission criticality, and resources to choose next-round participation, update cadence, and DP-style noise on weight deltas—balancing IDS accuracy, comms cost, and privacy risk for UAV swarms."
+    },
+    {
+      "id": "accuracy",
+      "term": "Accuracy",
+      "body": "Fraction of predictions matching labels. Intuitive for multi-class IDS but can be skewed by imbalance—pair with macro metrics."
+    },
+    {
+      "id": "macro-pr",
+      "term": "Macro precision / recall",
+      "body": "Per-class precision or recall averaged across classes, emphasizing every class matters for intrusion detection."
+    },
+    {
+      "id": "loss",
+      "term": "Cross-entropy loss",
+      "body": "Standard classification loss; decreasing values usually mean better-calibrated logits, but read together with accuracy."
+    },
+    {
+      "id": "threat",
+      "term": "Threat level",
+      "body": "Heuristic such as 1 − macro_precision fed to APC: lower precision implies a harder or more hostile RF/traffic regime for policy tightening."
+    },
+    {
+      "id": "trust",
+      "term": "Trust scores (0–100)",
+      "body": "Live runs: server.py writes data/live_rounds.json each round; the Dataset tab’s demo accuracy prefers the last centralized eval from that file when present. Otherwise the bundled rounds_en.json snapshot is shown. Trust scores come from RL_module (TrustNet + per-client squashing to ~5–95); see the server console for raw logs."
+    },
+    {
+      "id": "noise-scale",
+      "term": "noise_scale",
+      "body": "Strength of DP-style noise injected into uploaded weight deltas; higher protects gradients more but can hurt convergence and accuracy."
+    },
+    {
+      "id": "participate-freq",
+      "term": "participate / freq_n",
+      "body": "participate=0 skips federation this round and returns only global weights, isolating a suspicious node from poisoning the global model. freq_n means allow an uplink at most once every N federated rounds; larger N is sparser. In apc_module, benign/low-threat contexts often keep freq_n=1 (upload every round); under higher threat or low resources it ramps up per rules (up to about 180 in config)."
+    },
+    {
+      "id": "train-split",
+      "term": "train_split index",
+      "body": "For round r and client id: split_index = (r−1)×3 + id, mapping to data/swarm_processed/train_split_*.npz so each round uses different shards; independent of the geographic theatre labels."
+    },
+    {
+      "id": "local-holdout",
+      "term": "Local holdout accuracy",
+      "body": "Eval on each drone’s stratified holdout split within its shard; reflects fit on that client’s distribution and may diverge from global test to spot stragglers or anomalies."
+    }
+  ]
+}

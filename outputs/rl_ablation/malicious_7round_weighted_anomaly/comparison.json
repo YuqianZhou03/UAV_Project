@@ -1,0 +1,255 @@
+{
+  "baseline": "no_rl",
+  "variants": {
+    "no_apc": {
+      "variant": "no_apc",
+      "round": 7,
+      "accuracy": 0.545628505443748,
+      "loss": 1.845969557762146,
+      "precision_macro": 0.3628931756270178,
+      "recall_macro": 0.3388419077306989,
+      "trust_mean": 0.7,
+      "threat_level": 0.6371068243729823,
+      "next_participate": 1,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 1,
+      "next_epsilon": 1000000.0,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "aggregation_mode": "plain_fedavg",
+      "duration_sec": 46.69995589996688,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "plain_fedavg",
+        "effective_weights": {},
+        "trust_scores": {},
+        "resource_factors": {},
+        "anomaly_factors": {},
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\no_apc\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\no_apc\\live_rounds.json"
+    },
+    "no_rl": {
+      "variant": "no_rl",
+      "round": 7,
+      "accuracy": 0.4258660508083141,
+      "loss": 1.9460755586624146,
+      "precision_macro": 0.2504630598125875,
+      "recall_macro": 0.24294155366079476,
+      "trust_mean": 0.7,
+      "threat_level": 0.7495369401874126,
+      "next_participate": 1,
+      "next_noise_scale": 1.164451794435944,
+      "next_freq_n": 3,
+      "next_epsilon": 0.8587732053643287,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.032145091664839566,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 39.066836500074714,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 1.1640344314921702,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.8590811173154944,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 1.1654557721325844,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.8580334182653463,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 1.1638651796830775,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.8592060467624796,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 2028.2242994384765,
+          "2": 134.3547536044722,
+          "1": 2017.0560528488159
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "2": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "0": 0.715953369140625,
+          "2": 0.7155690002441406,
+          "1": 0.7120110321044922
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "2": 0.0663273020262679,
+          "1": 1.0
+        },
+        "malicious_weight_share": 0.032145091664839566,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\no_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\no_rl\\live_rounds.json"
+    },
+    "with_rl": {
+      "variant": "with_rl",
+      "round": 7,
+      "accuracy": 0.5328274496865721,
+      "loss": 1.913265347480774,
+      "precision_macro": 0.2593473686223589,
+      "recall_macro": 0.3136975729158942,
+      "trust_mean": 0.3706938171386719,
+      "threat_level": 0.7406526313776411,
+      "next_participate": 0,
+      "next_noise_scale": 1.290243192753271,
+      "next_freq_n": 3,
+      "next_epsilon": 0.7750476852864333,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.03327542222721845,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 38.352225800044835,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 1.2507153901437194,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.7995424121910664,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 1.2520971878808873,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.798660047861341,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 0,
+          "noise_scale": 1.3679170002352063,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.7310385058655278,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 1400.576170502834,
+          "1": 1392.7289228660518,
+          "2": 96.14776382889902
+        },
+        "trust_scores": {
+          "0": 0.483380126953125,
+          "1": 0.4833332443237305,
+          "2": 0.48329898834228513
+        },
+        "resource_factors": {
+          "0": 0.715953369140625,
+          "1": 0.7120110321044922,
+          "2": 0.7155690002441406
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 0.06874809005168371
+        },
+        "malicious_weight_share": 0.03327542222721845,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\with_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_7round_weighted_anomaly\\with_rl\\live_rounds.json"
+    }
+  },
+  "delta_minus_baseline": {
+    "no_apc": {
+      "accuracy": 0.11976245463543389,
+      "loss": -0.10010600090026855,
+      "precision_macro": 0.1124301158144303,
+      "recall_macro": 0.09590035406990413,
+      "trust_mean": 0.0,
+      "threat_level": -0.1124301158144303,
+      "next_noise_scale": -1.164451794435944,
+      "next_freq_n": -2.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": -0.032145091664839566
+    },
+    "no_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0
+    },
+    "with_rl": {
+      "accuracy": 0.10696139887825806,
+      "loss": -0.032810211181640625,
+      "precision_macro": 0.008884308809771424,
+      "recall_macro": 0.07075601925509942,
+      "trust_mean": -0.32930618286132807,
+      "threat_level": -0.008884308809771424,
+      "next_noise_scale": 0.12579139831732689,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0011303305623788854
+    }
+  }
+}

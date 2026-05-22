@@ -1,0 +1,312 @@
+{
+  "system": {
+    "name": "FL-UAV Swarm IDS",
+    "subtitle": "联邦学习 · CNN+LSTM 网络入侵检测 · 机载边缘 IDS 窗口特征",
+    "transport": "Flower gRPC · 127.0.0.1:8080",
+    "model": "CnnLstmIDS",
+    "tensor": "每样本 16×46：44 维无线/网络侧特征 + 2 路合成遥测（电量、CPU）"
+  },
+  "theatres": [
+    {
+      "flRound": 1,
+      "label_zh": "北京",
+      "label_en": "Beijing, China",
+      "region": "东亚",
+      "gps_wgs84": "39.9042°N, 116.4074°E",
+      "latitude_deg": 39.9042,
+      "longitude_deg": 116.4074,
+      "scene": "城市核心区电磁杂波：高密度 Wi‑Fi/BT 与 AP 多样性；本轮联邦侧重嵌入高容量合法流量中的 DDoS / 暴力破解类突发。"
+    },
+    {
+      "flRound": 2,
+      "label_zh": "苏丹",
+      "label_en": "Sudan",
+      "region": "北非",
+      "gps_wgs84": "15.5007°N, 32.5599°E",
+      "latitude_deg": 15.5007,
+      "longitude_deg": 32.5599,
+      "scene": "喀土穆区域中继 UAV：侦察与扫描混合流量、偶发 UDP 洪水；联邦轮次强调远距离有损回传与异构客户端分片。"
+    },
+    {
+      "flRound": 3,
+      "label_zh": "德黑兰",
+      "label_en": "Tehran, Iran",
+      "region": "中东",
+      "gps_wgs84": "35.6892°N, 51.3890°E",
+      "latitude_deg": 35.6892,
+      "longitude_deg": 51.389,
+      "scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+    }
+  ],
+  "rounds": [
+    {
+      "id": 1,
+      "label": "Round 1 — 联邦聚合后",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "城市核心区电磁杂波：高密度 Wi‑Fi/BT 与 AP 多样性；联邦轮次侧重嵌入高容量合法流量中的 DDoS / 暴力破解类突发。"
+      },
+      "centralized": {
+        "accuracy": 0.43101286704058067,
+        "loss": 1.5668221712112427,
+        "precision_macro": 0.2753268271248469,
+        "recall_macro": 0.27863590704698216,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          46.13,
+          52.35,
+          51.52
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.725,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.714,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.272,
+          "freq_n": 160
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 4047,
+          "battery_mean": 71.46,
+          "cpu_mean": 61.5,
+          "local_eval_accuracy": 0.461462
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 4047,
+          "battery_mean": 71.33,
+          "cpu_mean": 61.51,
+          "local_eval_accuracy": 0.476285
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 4044,
+          "battery_mean": 71.43,
+          "cpu_mean": 61.51,
+          "local_eval_accuracy": 0.474308
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Round 2 — 联邦聚合后",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "喀土穆区域中继 UAV：侦察与扫描混合流量、偶发 UDP 洪水；联邦轮次强调远距离有损回传与异构客户端分片。"
+      },
+      "centralized": {
+        "accuracy": 0.9466842626195975,
+        "loss": 0.53757643699646,
+        "precision_macro": 0.7488039083246879,
+        "recall_macro": 0.785895759594674,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          50.29,
+          50.27,
+          49.44
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.251,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.712,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.069,
+          "freq_n": 24
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 4044,
+          "battery_mean": 71.18,
+          "cpu_mean": 61.44,
+          "local_eval_accuracy": 0.959486
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 4042,
+          "battery_mean": 71.26,
+          "cpu_mean": 61.44,
+          "local_eval_accuracy": 0.959446
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 4040,
+          "battery_mean": 71.14,
+          "cpu_mean": 61.49,
+          "local_eval_accuracy": 0.957468
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Round 3 — 联邦聚合后",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.8201913559881228,
+        "loss": 0.48556044697761536,
+        "precision_macro": 0.7967670926546001,
+        "recall_macro": 0.7194863878577535,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.65,
+        "cpu_util_mean": 6.12
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          47.51,
+          51.66,
+          50.83
+        ],
+        "trust_mean": 0.5,
+        "threat_level": 0.203,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.714,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.036,
+          "freq_n": 24
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 4040,
+          "battery_mean": 71.62,
+          "cpu_mean": 61.5,
+          "local_eval_accuracy": 0.8
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 4040,
+          "battery_mean": 71.3,
+          "cpu_mean": 61.54,
+          "local_eval_accuracy": 0.8099
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 4040,
+          "battery_mean": 71.25,
+          "cpu_mean": 61.47,
+          "local_eval_accuracy": 0.807921
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "id": "system-topology",
+      "term": "四组件联通关系",
+      "body": "① UAV 边缘客户端：三台 DroneClient（client.py）经 gRPC 与 Flower 通信，本地 CNN+LSTM 在各自 train_split 上训练并回传参数增量。② 联邦服务端：聚合 FedAvg、加载全局模型在 test.npz 上集中式评估 IDS 性能。③ RL 信任桥：根据各机遥测、本地 eval、全局 loss/precision 等构造状态并输出信任分。④ APC：综合威胁度、任务关键度、信任与电池等资源，生成下一轮 participate / noise_scale / freq_n，经服务端 fit 配置下发回机队，形成闭环。"
+    },
+    {
+      "id": "uav-workflow",
+      "term": "边缘安全闭环（一键模拟）",
+      "body": "在「工作流」页点击一次按钮，将通过 dashboard/serve.py 的 /api/uav-workflow 调用 uav_workflow_sim：读取 data/swarm_processed/test.npz，本地 CnnLstmIDS 真实前向（有 checkpoints/fl_global_last.pt 则加载；否则随机初始化仅作演示）。IDS 以 softmax argmax 与校准后的「无告警类」比较判断是否告警；随后 AdaptivePrivacyController 输出下一轮 participate / noise_scale / freq_n。页面仅展示精简字段：剧本侧 scenario_side / scenario_tag、模型 predicted_class、上报 reported_attack_class 等，已去掉易与「真值」混淆的聚合标签与重复时间戳。"
+    },
+    {
+      "id": "theatres",
+      "term": "三地测试场景（scenario_config）",
+      "body": "三组地理锚点想定（北京、苏丹、德黑兰）绑定 WGS84 与任务叙事，用于态势地图与日志；IDS 训练张量来源与清洗步骤见「数据集」页。"
+    },
+    {
+      "id": "centralized-eval",
+      "term": "集中式评估（Centralized eval）",
+      "body": "服务端在全局 holdout 测试集 test.npz 上对当前全局模型做一次前向推理。反映「聚合后模型」在池化未见数据上的入侵检测质量，与单机本地 eval 不同。"
+    },
+    {
+      "id": "pooled-telem",
+      "term": "池化测试遥测均值",
+      "body": "在全局测试窗口上，对特征张量中电池 SOC、CPU 占用等遥测通道取平均。用于刻画「任务负载与能耗背景」，不直接等同于攻击标签，但可与异常流量导致的 CPU 抬升等现象交叉解读。"
+    },
+    {
+      "id": "rl-apc",
+      "term": "RL→APC 闭环",
+      "body": "集中式评估后，RL 模块将各机状态与全局指标编码为信任分数；APC（自适应隐私控制器）结合威胁度、任务关键度、资源可用度输出下一轮联邦训练策略：是否参与、更新频率、对权重增量加噪强度，从而在 UAV 编队场景下平衡检测性能、通信开销与隐私风险。"
+    },
+    {
+      "id": "accuracy",
+      "term": "准确率 Accuracy",
+      "body": "预测类别与真实标签一致的比例。多类 IDS 中整体正确率直观，但易受类别不平衡影响，因此需结合 macro 指标。"
+    },
+    {
+      "id": "macro-pr",
+      "term": "Macro Precision / Recall",
+      "body": "对每个攻击/正常类别先算精确率或召回率，再取算术平均，强调「每一类都要好」，更适合多类入侵检测场景。"
+    },
+    {
+      "id": "loss",
+      "term": "Cross-entropy Loss",
+      "body": "分类训练常用的损失；数值下降通常表示全局模型对各类 logit 校准更好，但需与准确率一起判断。"
+    },
+    {
+      "id": "threat",
+      "term": "Threat level",
+      "body": "由 1 − macro_precision 等启发式映射得到的威胁度，供 APC 决策：精度越低，认为环境越「不可信」或越难区分攻击模式。"
+    },
+    {
+      "id": "trust",
+      "term": "Trust scores（0–100）",
+      "body": "实时跑联邦时：server.py 每轮结束会写入 data/live_rounds.json；仪表盘「数据集」页的演示准确率会优先使用该文件中的最后一轮集中式结果。RL 信任分由 RL_module 的 TrustNet+logistic（约 5–95 区间）得到，详见 server 控制台。"
+    },
+    {
+      "id": "noise-scale",
+      "term": "noise_scale",
+      "body": "对上传权重增量注入 DP 风格噪声的强度系数；越大越保护梯度隐私，但可能损害收敛与精度。"
+    },
+    {
+      "id": "participate-freq",
+      "term": "participate / freq_n",
+      "body": "participate=0：该机本轮不参与联邦聚合，仅回传当前全局权重，避免可疑端污染全局模型。freq_n：每 N 个联邦全局轮才允许该机上传一次本地更新；N 越大上传越稀疏。apc_module 在威胁较低时常为 1（每轮可上传）；威胁升高或资源紧张时在配置区间内增大（最高约 180，见 frequency 规则）。"
+    },
+    {
+      "id": "train-split",
+      "term": "train_split 索引",
+      "body": "第 r 轮、客户端 id 使用 split_index = (r−1)×3 + id，对应 data/swarm_processed/train_split_*.npz，使每轮三机数据覆盖不同分片；与导航中的地理想定标签相互独立。"
+    },
+    {
+      "id": "local-holdout",
+      "term": "本地 holdout 准确率",
+      "body": "各机在自身 shard 内划分出的验证子集上评估。反映「该机当前数据分布」上的拟合情况，数值可与全局测试不一致，用于发现掉队或异常客户端。"
+    }
+  ]
+}

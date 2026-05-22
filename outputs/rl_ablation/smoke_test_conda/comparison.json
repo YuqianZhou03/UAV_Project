@@ -1,0 +1,78 @@
+{
+  "no_rl": {
+    "variant": "no_rl",
+    "round": 1,
+    "accuracy": 0.5696469811943253,
+    "loss": 0.8645694255828857,
+    "precision_macro": 0.37227061069728007,
+    "recall_macro": 0.3996236894633471,
+    "trust_mean": 0.7,
+    "threat_level": 0.6277293893027199,
+    "next_participate": 0,
+    "next_noise_scale": 1.1479313135618219,
+    "next_freq_n": 65,
+    "duration_sec": 47.55902510008309,
+    "per_uav_next_policy": {
+      "0": {
+        "participate": 0,
+        "noise_scale": 1.1477412473580086,
+        "freq_n": 65
+      },
+      "1": {
+        "participate": 0,
+        "noise_scale": 1.148260810437648,
+        "freq_n": 65
+      },
+      "2": {
+        "participate": 0,
+        "noise_scale": 1.1477918828898093,
+        "freq_n": 65
+      }
+    },
+    "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_test_conda\\no_rl\\server.log",
+    "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_test_conda\\no_rl\\live_rounds.json"
+  },
+  "with_rl": {
+    "variant": "with_rl",
+    "round": 1,
+    "accuracy": 0.683206862421643,
+    "loss": 0.9356878399848938,
+    "precision_macro": 0.38694328045052384,
+    "recall_macro": 0.43850779886449087,
+    "trust_mean": 0.5714175796508789,
+    "threat_level": 0.6130567195494762,
+    "next_participate": 1,
+    "next_noise_scale": 1.176723135323883,
+    "next_freq_n": 61,
+    "duration_sec": 33.2924491999438,
+    "per_uav_next_policy": {
+      "0": {
+        "participate": 1,
+        "noise_scale": 1.176517212319654,
+        "freq_n": 61
+      },
+      "1": {
+        "participate": 1,
+        "noise_scale": 1.1770808454488177,
+        "freq_n": 61
+      },
+      "2": {
+        "participate": 1,
+        "noise_scale": 1.1765713482031774,
+        "freq_n": 61
+      }
+    },
+    "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_test_conda\\with_rl\\server.log",
+    "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_test_conda\\with_rl\\live_rounds.json"
+  },
+  "delta_with_rl_minus_no_rl": {
+    "accuracy": 0.11355988122731764,
+    "loss": 0.07111841440200806,
+    "precision_macro": 0.014672669753243772,
+    "recall_macro": 0.038884109401143785,
+    "trust_mean": -0.12858242034912104,
+    "threat_level": -0.014672669753243772,
+    "next_noise_scale": 0.028791821762061076,
+    "next_freq_n": -4.0
+  }
+}

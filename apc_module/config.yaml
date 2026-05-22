@@ -1,0 +1,33 @@
+# APC 模块配置文件
+# 修改阈值无需改代码，重启即生效
+
+# 参与度决策阈值
+participation:
+  min_trust_score: 0.3
+  min_resource: 0.2
+  suspend_participation_threat: 0.62
+  critical_suspend_threat: 0.92
+  threat_suspend_trust: 0.35
+
+# freq_n = 每 N 个联邦全局轮上传一次。低威胁保持 freq_benign（默认 1），
+# 威胁在 [threat_ramp_start, threat_ramp_end] 内平滑升到 freq_at_ramp_end。
+frequency:
+  low_resource_threshold: 0.3
+  freq_low_resource: 3
+
+  neutral_threat_max: 0.32
+  freq_benign: 1
+  threat_ramp_start: 0.32
+  threat_ramp_end: 0.82
+  freq_at_ramp_end: 3
+  freq_cap: 6
+
+# 噪声尺度决策（基于 epsilon 计算）
+noise:
+  base_epsilon: 1.0
+  min_epsilon: 0.2
+  max_epsilon: 1.5
+  weight_threat: 0.2
+  weight_trust: 0.1
+  weight_criticality: 0.2
+  weight_resource: 0.1

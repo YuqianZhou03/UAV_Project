@@ -1,0 +1,78 @@
+{
+  "no_rl": {
+    "variant": "no_rl",
+    "round": 3,
+    "accuracy": 0.683206862421643,
+    "loss": 0.935687780380249,
+    "precision_macro": 0.38694328045052384,
+    "recall_macro": 0.43850779886449087,
+    "trust_mean": 0.7,
+    "threat_level": 0.6130567195494762,
+    "next_participate": 1,
+    "next_noise_scale": 1.0356871903917797,
+    "next_freq_n": 14,
+    "duration_sec": 36.775138700031675,
+    "per_uav_next_policy": {
+      "0": {
+        "participate": 1,
+        "noise_scale": 1.0350704884441901,
+        "freq_n": 13
+      },
+      "1": {
+        "participate": 1,
+        "noise_scale": 1.0358203758753441,
+        "freq_n": 14
+      },
+      "2": {
+        "participate": 1,
+        "noise_scale": 1.0361707068558044,
+        "freq_n": 14
+      }
+    },
+    "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\20260522_165648\\no_rl\\server.log",
+    "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\20260522_165648\\no_rl\\live_rounds.json"
+  },
+  "with_rl": {
+    "variant": "with_rl",
+    "round": 3,
+    "accuracy": 0.683206862421643,
+    "loss": 0.935687780380249,
+    "precision_macro": 0.38694328045052384,
+    "recall_macro": 0.43850779886449087,
+    "trust_mean": 0.5728477478027344,
+    "threat_level": 0.6130567195494762,
+    "next_participate": 1,
+    "next_noise_scale": 1.0637030011742228,
+    "next_freq_n": 14,
+    "duration_sec": 37.85106170002837,
+    "per_uav_next_policy": {
+      "0": {
+        "participate": 1,
+        "noise_scale": 1.063050302839182,
+        "freq_n": 13
+      },
+      "1": {
+        "participate": 1,
+        "noise_scale": 1.0638439547985141,
+        "freq_n": 14
+      },
+      "2": {
+        "participate": 1,
+        "noise_scale": 1.0642147458849724,
+        "freq_n": 14
+      }
+    },
+    "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\20260522_165648\\with_rl\\server.log",
+    "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\20260522_165648\\with_rl\\live_rounds.json"
+  },
+  "delta_with_rl_minus_no_rl": {
+    "accuracy": 0.0,
+    "loss": 0.0,
+    "precision_macro": 0.0,
+    "recall_macro": 0.0,
+    "trust_mean": -0.12715225219726556,
+    "threat_level": 0.0,
+    "next_noise_scale": 0.028015810782443085,
+    "next_freq_n": 0.0
+  }
+}

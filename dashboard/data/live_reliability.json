@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-13T09:25:50+00:00",
+  "last_round_id": 3,
+  "baseline_policy": {
+    "participate": 1.0,
+    "noise_scale": 0.65,
+    "freq_n": 1.0
+  },
+  "policy_after_round1": {
+    "participate": 1,
+    "noise_scale": 1.2377642483815394,
+    "freq_n": 1
+  },
+  "final_policy": {
+    "participate": 1,
+    "noise_scale": 0.9855187468318665,
+    "freq_n": 1
+  },
+  "participation": {
+    "baseline_intensity": 1.0,
+    "final_intensity": 1.0,
+    "drop_pct_vs_baseline": 0.0,
+    "freq_n": 1
+  },
+  "noise": {
+    "baseline": 0.65,
+    "final": 0.9855187468318665,
+    "delta": 0.33551874683186644,
+    "delta_pct_vs_baseline": 51.61826874336407
+  },
+  "ids": {
+    "accuracy": 0.9397558561530848,
+    "precision_macro": 0.8523640538866278,
+    "recall_macro": 0.7818622194945006,
+    "loss": 0.30040499567985535,
+    "test_windows": 15155,
+    "summary_zh": "全局测试准确率 93.98%（多类攻击/正常判别）；macro 精确率 85.24% — 对应「检测头」对各类攻击的可分性。",
+    "summary_en": "Global test accuracy 93.98% (multi-class attack vs normal); macro precision 85.24% — headroom for separating attack classes."
+  },
+  "rl": {
+    "trust_scores_0_100": [
+      51.49332046508789,
+      51.49329376220703,
+      51.4906120300293
+    ],
+    "trust_mean": 0.5149241256713867,
+    "outputs_zh": "输出三机信任分（0–100）与信任均值，作为 APC 的「可信度」输入维。",
+    "outputs_en": "Trust scores 0–100 per UAV plus mean trust — APC credibility input."
+  },
+  "apc": {
+    "threat_level": 0.14763594611337216,
+    "mission_criticality": 0.92,
+    "resource_availability": 0.72,
+    "outputs_zh": "综合威胁度、任务关键度、信任与资源，生成下一轮 participate / noise_scale / freq_n。",
+    "outputs_en": "Fuses threat, mission criticality, trust, resources → next participate / noise_scale / freq_n."
+  },
+  "fl": {
+    "aggregation": "FedAvg",
+    "clients": 3,
+    "outputs_zh": "聚合各机上传权重，形成全局 CNN+LSTM，并触发集中式 IDS 评估。",
+    "outputs_en": "Aggregates client deltas into global CNN+LSTM and runs centralized IDS eval."
+  },
+  "verdict": {
+    "code": "nominal",
+    "title_zh": "威胁态势（可控）",
+    "title_en": "Threat posture (nominal)",
+    "detail_zh": "态势平稳：威胁感知未越过阈值，可在当前参与/噪声策略附近微调。",
+    "detail_en": "Stable posture: threat perception below threshold; light tuning of participation/noise may suffice."
+  },
+  "system_response_zh": "APC 维持每轮可训（freq_n=1），主要通过噪声系数调节隐私—效用折中。 噪声系数相对基线 0.65 上调 0.336（约 +51.6%），权重增量更模糊。",
+  "system_response_en": "APC keeps freq_n=1 (train every round); privacy–utility trade-off is mainly via noise_scale. noise_scale vs baseline 0.65 increased by 0.336 (~+51.6%), stronger DP-style noise on deltas."
+}

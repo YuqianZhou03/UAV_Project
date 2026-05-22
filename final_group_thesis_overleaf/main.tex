@@ -1,0 +1,244 @@
+% EEEN3010J / IoTE Stage 4 — Final Group Thesis (handbook Sec. 3)
+% Overleaf: Menu -> Compiler = pdfLaTeX; build uses biber automatically when biblatex is detected.
+\documentclass[11pt,a4paper,oneside]{report}
+
+\usepackage{csquotes}
+\usepackage[a4paper,margin=2.54cm]{geometry}
+\usepackage{setspace}
+\singlespacing
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink]{cleveref}
+
+% IEEE numeric citations (handbook Sec. 3.1)
+\usepackage[style=ieee,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Adjust line spacing in floats if needed (single-spaced body already)
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+
+\title{%
+  \textbf{Stage 4 Project Group Thesis}\\[0.75em]
+  {\large \textit{A Federated Intrusion Detection Mechanism with Adaptive Privacy for UAV Swarms}}\\[1.5em]
+  {\normalsize BE (Internet of Things Engineering) --- Academic Year 2025/26}\\[0.5em]
+  {\normalsize Module: EEEN3010J}
+}
+\author{%
+  \textit{[Group member names and UCD student numbers]}\\[1em]
+  Supervisor: \textit{[Supervisor name]}
+}
+\date{\textit{[Submission date]}}
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, inner sep=0] at ([shift={(1.4cm,-1.1cm)}]current page.north west) {%
+      \includegraphics[height=2.5cm]{logos/ucd_logo.jpg}\hspace{0.4cm}%
+      \includegraphics[height=2.5cm]{logos/bjut_logo.pdf}%
+    };
+  \end{tikzpicture}
+  \makeatletter
+  \null\vfil
+  \vskip 40\p@
+  \begin{center}%
+    \@title \par
+    \vskip 3em%
+    {\large
+      \lineskip .75em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 1.5em%
+    {\large \@date \par}%
+  \end{center}\par
+  \vfil\null
+  \makeatother
+\end{titlepage}
+
+% Optional: receipt / signed declaration is usually a separate sheet (Appendix A in handbook).
+% Brightspace submission uses PDF + receipt.
+
+\begin{abstract}
+\noindent
+This project investigates a federated intrusion detection framework for UAV swarms.
+The system trains a CNN--LSTM IDS over windowed UAV network features with Flower
+FedAvg while keeping raw packet data on simulated drone clients. A TrustNet-based
+reinforcement learning bridge estimates per-UAV trust from client quality,
+latency/resource proxies, loss, energy, and attack pressure. An adaptive privacy
+controller then adjusts participation, update frequency, and Gaussian update
+noise according to threat level, mission criticality, trust score, and resource
+availability. The implementation includes ablation experiments for no-APC,
+fixed-trust APC, and RL-trust APC variants, plus stress scenarios for malicious
+updates, client dropout, low resources, and non-IID client data.
+\end{abstract}
+
+\tableofcontents
+% Figures and tables: place \begin{figure}...\end{figure} / \begin{table}...\end{table}
+% in the relevant sections (no separate List of Figures/Tables).
+
+% ---------------------------------------------------------------------------
+% SHARED: Introduction (aims of the project)
+% Handbook: also disclose AI use in introduction or early if applicable (Sec.\,3.1).
+% ---------------------------------------------------------------------------
+\chapter{Introduction (Shared)}
+\label{ch:intro}
+
+\section{Project aims and scope}
+UAV swarms are useful in surveillance, emergency response, monitoring, and
+precision agriculture, but their distributed nature exposes them to jamming,
+spoofing, denial-of-service, reconnaissance, and compromised participant risks.
+Centralised IDS training is poorly matched to UAV deployments because raw data is
+sensitive, connectivity is intermittent, and onboard resources vary across
+clients. The aim of this project is therefore to build and evaluate a federated
+IDS workflow that detects UAV network attacks without centralising raw packet
+features.
+
+The implemented scope has four parts: (i) preprocessing Wireshark-style UAV IDS
+features into sliding windows, (ii) federated CNN--LSTM training across drone
+clients, (iii) RL-based trust modelling from per-round client context, and
+(iv) adaptive privacy control over participation, update frequency, and update
+noise. The project is a research prototype and dashboard demonstration rather
+than a flight-certified UAV security product.
+
+\section{Use of generative AI (if applicable)}
+Generative AI was used as an engineering assistant for code review, refactoring
+suggestions, experiment-design planning, and drafting explanatory text. All code,
+results, and thesis claims should be checked by the project team before
+submission.
+
+% ---------------------------------------------------------------------------
+% SHARED: Literature review
+% ---------------------------------------------------------------------------
+\chapter{Literature Review (Shared)}
+\label{ch:litreview}
+
+The literature review should connect three areas. First, UAV swarm security
+surveys describe the attack surface of cooperative aerial networks, including
+jamming, spoofing, routing disruption, and compromised nodes. Second,
+federated-learning IDS work motivates local training under limited connectivity
+and privacy constraints. Third, differential privacy and adaptive privacy
+mechanisms in IoT explain the trade-off between utility, communication overhead,
+and privacy protection. The implemented system combines these themes by using
+federated training for IDS utility, RL trust estimation for participant
+reliability, and APC rules for runtime privacy/resource adaptation.
+
+% ---------------------------------------------------------------------------
+% SHARED: Work division (+ optional high-level design)
+% ---------------------------------------------------------------------------
+\chapter{Work Division and Integration (Shared)}
+\label{ch:division}
+
+\section{Division of responsibilities}
+\textit{Replace this paragraph with the final group member mapping. Suggested
+categories: data preprocessing and synthetic telemetry; CNN--LSTM and FL
+training; TrustNet/RL trust modelling; APC rules and privacy analysis;
+dashboard, experiments, and thesis integration.}
+
+\section{High-level system design (optional)}
+The system contains five cooperating components. The preprocessing pipeline
+converts UAV packet features into fixed-length windows and shards them across
+clients. Each client trains a local CNN--LSTM IDS model and reports telemetry
+summaries. The Flower server aggregates updates and evaluates the global model
+on a pooled holdout set. The RL trust bridge maps each client to a state vector
+\([quality, latency, loss, energy, attack]\), updates TrustNet from reward
+transitions, and produces trust scores. The APC maps threat level, mission
+criticality, trust score, and resource availability to the next round's
+participation, update frequency, and privacy noise.
+
+% ---------------------------------------------------------------------------
+% INDIVIDUAL SECTIONS — duplicate one block per student (min.\ $\sim$10 pages / $\sim$2500 words each per handbook guidance).
+% ---------------------------------------------------------------------------
+\chapter{Individual Contribution: \textit{[Student Name / ID]}}
+\label{ch:individual-template}
+
+\section*{Declaration of authorship}
+\textit{[Clear statement of which parts of this chapter you authored; align with group integrity rules.]}
+
+\section{Work completed}
+Implemented and integrated the federated IDS stack, including the CNN--LSTM
+model, Flower clients/server, RL trust bridge, APC policy module, synthetic UAV
+telemetry enrichment, dashboard export, and ablation runner. The latest
+implementation supports no-APC, fixed-trust APC, and RL-trust APC variants, plus
+malicious-client, dropout, low-resource, IID, and non-IID stress scenarios.
+
+\section{Results}
+Insert the generated results from \texttt{outputs/rl\_ablation/<timestamp>/}.
+At minimum include a table comparing accuracy, loss, macro precision, macro
+recall, trust mean, next-round noise scale, update frequency, and participation
+for no-APC, no-RL, and with-RL variants. Include one stress-scenario table for
+malicious or low-resource clients to show how APC/RL changes communication and
+privacy decisions.
+
+\section{Discussion}
+The main interpretation should focus on the trade-off between IDS utility and
+adaptive privacy/resource control. The APC may reduce participation or increase
+update intervals under high threat or low resource conditions, which can protect
+the global model and reduce communication but may slow learning. The current
+Gaussian update-noise mechanism is an experimental privacy controller with
+epsilon/delta logging; it should not be presented as a fully certified
+differential-privacy accountant.
+
+\section{Conclusions}
+The implementation demonstrates an end-to-end UAV swarm IDS workflow where
+federated learning, trust modelling, and adaptive privacy control interact
+during training. The strongest evidence for the design should come from ablation
+and stress-scenario experiments rather than from a single nominal training run.
+
+% --- Duplicate the following pattern for each additional group member ---
+% \chapter{Individual Contribution: \textit{[Student 2 Name / UCD ID]}}
+% \label{ch:individual-2}
+% \section*{Declaration of authorship} ...
+% \section{Work completed} ... \section{Results} ... \section{Discussion} ... \section{Conclusions} ...
+
+% ---------------------------------------------------------------------------
+% SHARED: Overall discussion and conclusions
+% ---------------------------------------------------------------------------
+\chapter{Overall Discussion and Conclusions (Shared)}
+\label{ch:overall}
+
+The final discussion should compare the three variants: no-APC as the utility
+baseline, no-RL as a fixed-trust privacy-control baseline, and with-RL as the
+adaptive trust model. Discuss where RL trust changes APC decisions, where it
+does not yet improve IDS metrics, and what this implies about training horizon,
+reward design, and scenario realism.
+
+% ---------------------------------------------------------------------------
+% SHARED: Future work
+% ---------------------------------------------------------------------------
+\chapter{Suggestions for Future Work (Shared)}
+\label{ch:future}
+
+Future work should add longer-running experiments, stronger adversarial clients,
+formal DP accounting, real onboard telemetry where available, and hardware-aware
+communication/energy measurements. The TrustNet reward can also be extended to
+include explicit model-poisoning detection and communication-cost penalties.
+
+% ---------------------------------------------------------------------------
+% SHARED: References (IEEE)
+% ---------------------------------------------------------------------------
+\printbibliography[heading=bibintoc,title={References (IEEE)}]
+
+% ---------------------------------------------------------------------------
+% Appendices: shared and/or individual (lengthy derivations, code listings, extra data)
+% ---------------------------------------------------------------------------
+\appendix
+
+\chapter{Appendices (Shared and/or Individual)}
+\label{app:main}
+
+\textit{[Label appendix material clearly as shared vs.\ which author; e.g.\ split into App.\,A shared maths, App.\,B individual code.]}
+
+\end{document}

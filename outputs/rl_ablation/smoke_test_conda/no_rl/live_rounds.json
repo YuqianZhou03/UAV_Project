@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-05-22T08:55:55+00:00",
+  "rounds": [
+    {
+      "id": 1,
+      "label": "Round 1 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.5696469811943253,
+        "loss": 0.8645694255828857,
+        "precision_macro": 0.37227061069728007,
+        "recall_macro": 0.3996236894633471,
+        "test_windows": 15155
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.6412582397461,
+        "cpu_util_mean": 47.46973419189453
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.6277293893027199,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.7145111338297526,
+        "next_policy": {
+          "participate": 0,
+          "noise_scale": 1.1479313135618219,
+          "freq_n": 65
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 0,
+            "noise_scale": 1.1477412473580086,
+            "freq_n": 65
+          },
+          "1": {
+            "participate": 0,
+            "noise_scale": 1.148260810437648,
+            "freq_n": 65
+          },
+          "2": {
+            "participate": 0,
+            "noise_scale": 1.1477918828898093,
+            "freq_n": 65
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 4047,
+          "battery_mean": 71.5953369140625,
+          "cpu_mean": 48.990299224853516,
+          "local_eval_accuracy": 0.0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 4047,
+          "battery_mean": 71.20110321044922,
+          "cpu_mean": 49.00600814819336,
+          "local_eval_accuracy": 0.0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 4044,
+          "battery_mean": 71.55690002441406,
+          "cpu_mean": 48.99501037597656,
+          "local_eval_accuracy": 0.0
+        }
+      ]
+    }
+  ]
+}

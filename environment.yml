@@ -1,0 +1,14 @@
+name: uav-fl-ids
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.24
+  - pandas>=2.0
+  - scikit-learn>=1.3
+  - pyyaml>=6.0
+  - pytorch>=2.0
+  - pip:
+      - flwr>=1.0.0

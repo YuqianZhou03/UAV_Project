@@ -1,0 +1,1970 @@
+{
+  "generated_at": "2026-05-22T17:45:13+00:00",
+  "rounds": [
+    {
+      "id": 1,
+      "label": "Round 1 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.21774193548387097,
+        "loss": 2.269653797149658,
+        "precision_macro": 0.059156892035825054,
+        "recall_macro": 0.14662756598240467,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.9408431079641749,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.7235266621907551,
+        "epsilon": 0.9021839125561403,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.1084214494212374,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9021839125561403,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.1087108307486317,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9019484362074579,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.1078218945641773,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9026721758314814,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.1087316229509034,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9019315218397823,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 268,
+          "battery_mean": 72.11705780029297,
+          "cpu_mean": 45.431976318359375,
+          "local_eval_accuracy": 0.0,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 268,
+          "battery_mean": 72.8407974243164,
+          "cpu_mean": 45.357669830322266,
+          "local_eval_accuracy": 0.0,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 268,
+          "battery_mean": 72.10014343261719,
+          "cpu_mean": 45.48664093017578,
+          "local_eval_accuracy": 0.0,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 123.8898510380504,
+          "1": 136.64933596801757,
+          "2": 135.25986907958986
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "1": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "0": 0.7211705780029297,
+          "1": 0.7284079742431641,
+          "2": 0.7210014343261719
+        },
+        "anomaly_factors": {
+          "0": 0.9157246321369655,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 2,
+      "label": "Round 2 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; FL round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.21774193548387097,
+        "loss": 2.269653797149658,
+        "precision_macro": 0.059156892035825054,
+        "recall_macro": 0.14662756598240467,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.9408431079641749,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.72,
+        "epsilon": 0.941969327114791,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0616056926852961,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.941969327114791,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.0634298334820629,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9403535320479302,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.061603605482148,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9419711791067538,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.059783639091678,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9435888261655772,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.19117647058823528,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.20588235294117646,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.22058823529411764,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "1": 0.5249999999999999,
+          "0": 0.5249999999999999,
+          "2": 0.5249999999999999
+        },
+        "trust_scores": {
+          "1": 0.7,
+          "0": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "1": 0.75,
+          "0": 0.75,
+          "2": 0.75
+        },
+        "anomaly_factors": {
+          "1": 1.0,
+          "0": 1.0,
+          "2": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 3,
+      "label": "Round 3 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.21774193548387097,
+        "loss": 2.2696533203125,
+        "precision_macro": 0.059156892035825054,
+        "recall_macro": 0.14662756598240467,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.9408431079641749,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.72,
+        "epsilon": 0.9546362153387298,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0475194466042481,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9546362153387298,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.050030231787571,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9523535320479302,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.050030231787571,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9523535320479302,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.0424978762376025,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9592345680444182,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.19117647058823528,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.19117647058823528,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.2537313432835821,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 0.5249999999999999,
+          "2": 0.5249999999999999,
+          "1": 0.5249999999999999
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "2": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "0": 0.75,
+          "2": 0.75,
+          "1": 0.75
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "2": 1.0,
+          "1": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 4,
+      "label": "Round 4 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.2513440860215054,
+        "loss": 2.0748229026794434,
+        "precision_macro": 0.1361123286870635,
+        "recall_macro": 0.18328445747800587,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.8638876713129365,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.7235266621907551,
+        "epsilon": 0.9238186935813466,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0824634822264996,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9238186935813466,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.0825903279064848,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9237104509642182,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.080974845203348,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9250909070061519,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.083825273569666,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9226579453221452,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 268,
+          "battery_mean": 72.11705780029297,
+          "cpu_mean": 45.431976318359375,
+          "local_eval_accuracy": 0.19402985074626866,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 268,
+          "battery_mean": 72.8407974243164,
+          "cpu_mean": 45.357669830322266,
+          "local_eval_accuracy": 0.2,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 268,
+          "battery_mean": 72.10014343261719,
+          "cpu_mean": 45.48664093017578,
+          "local_eval_accuracy": 0.18461538461538463,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "1": 136.64933596801757,
+          "0": 130.80872461005663,
+          "2": 135.25986907958986
+        },
+        "trust_scores": {
+          "1": 0.7,
+          "0": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "1": 0.7284079742431641,
+          "0": 0.7211705780029297,
+          "2": 0.7210014343261719
+        },
+        "anomaly_factors": {
+          "1": 1.0,
+          "0": 0.9668650839450936,
+          "2": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 5,
+      "label": "Round 5 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; FL round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.2513440860215054,
+        "loss": 2.0748231410980225,
+        "precision_macro": 0.1361123286870635,
+        "recall_macro": 0.18328445747800587,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.8638876713129365,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.72,
+        "epsilon": 0.9537501095818357,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0484926711446902,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9537501095818357,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.0484926711446902,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9537501095818357,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.0484926711446902,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9537501095818357,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.0484926711446902,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9537501095818357,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.25,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.25,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.25,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "1": 0.5249999999999999,
+          "2": 0.5249999999999999,
+          "0": 0.5249999999999999
+        },
+        "trust_scores": {
+          "1": 0.7,
+          "2": 0.7,
+          "0": 0.7
+        },
+        "resource_factors": {
+          "1": 0.75,
+          "2": 0.75,
+          "0": 0.75
+        },
+        "anomaly_factors": {
+          "1": 1.0,
+          "2": 1.0,
+          "0": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 6,
+      "label": "Round 6 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.2513440860215054,
+        "loss": 2.0748231410980225,
+        "precision_macro": 0.1361123286870635,
+        "recall_macro": 0.18328445747800587,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.8638876713129365,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.72,
+        "epsilon": 0.965346915384112,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.035897027341823,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.965346915384112,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.0372018772017353,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9641324625230122,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.0354645472761006,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9657501095818356,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.0350246575476334,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9661605573430297,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.23529411764705882,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.25,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.2537313432835821,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 0.5249999999999999,
+          "0": 0.5249999999999999,
+          "1": 0.5249999999999999
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "0": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "2": 0.75,
+          "0": 0.75,
+          "1": 0.75
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "0": 1.0,
+          "1": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 7,
+      "label": "Round 7 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.43951612903225806,
+        "loss": 1.87454092502594,
+        "precision_macro": 0.3917715036855968,
+        "recall_macro": 0.3885630498533725,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.6082284963144031,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.7235266621907551,
+        "epsilon": 0.9535307792874606,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0487338444882337,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9535307792874606,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.0490020969583838,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9532869408931908,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.0491229189458913,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9531771558329432,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.0480765175604263,
+            "freq_n": 3,
+            "update_frequency": 3,
+            "epsilon": 0.9541288095335516,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 268,
+          "battery_mean": 72.11705780029297,
+          "cpu_mean": 45.431976318359375,
+          "local_eval_accuracy": 0.2537313432835821,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 268,
+          "battery_mean": 72.8407974243164,
+          "cpu_mean": 45.357669830322266,
+          "local_eval_accuracy": 0.24615384615384617,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 268,
+          "battery_mean": 72.10014343261719,
+          "cpu_mean": 45.48664093017578,
+          "local_eval_accuracy": 0.26153846153846155,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 135.25986907958986,
+          "0": 135.2916004333496,
+          "1": 132.2371506478245
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "0": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "2": 0.7210014343261719,
+          "0": 0.7211705780029297,
+          "1": 0.7284079742431641
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "0": 1.0,
+          "1": 0.9677116226805103
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 8,
+      "label": "Round 8 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; FL round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.43951612903225806,
+        "loss": 1.87454092502594,
+        "precision_macro": 0.3917715036855968,
+        "recall_macro": 0.3885630498533725,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.6082284963144031,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.72,
+        "epsilon": 0.9988562084437653,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.001145101313448,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 0.9988562084437653,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.005476273253386,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 0.9945535529787625,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.0005938583031408,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 0.9994064941552331,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9973651723838173,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0026417882728802,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.4117647058823529,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.45588235294117646,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.4852941176470588,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 0.5249999999999999,
+          "1": 0.5249999999999999,
+          "0": 0.5249999999999999
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "1": 0.7,
+          "0": 0.7
+        },
+        "resource_factors": {
+          "2": 0.75,
+          "1": 0.75,
+          "0": 0.75
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "1": 1.0,
+          "0": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 9,
+      "label": "Round 9 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.4314516129032258,
+        "loss": 1.7018505334854126,
+        "precision_macro": 0.49904776519747246,
+        "recall_macro": 0.3797653958944282,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.5009522348025275,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.7243565877278645,
+        "epsilon": 1.0195815084752768,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9807945629530298,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 1.0195815084752768,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9807859060450828,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0195905078126541,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.9811458576600297,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0192164520624245,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9804519251539769,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0199378208604701,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 268,
+          "battery_mean": 72.14679718017578,
+          "cpu_mean": 46.750709533691406,
+          "local_eval_accuracy": 0.4411764705882353,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 260,
+          "battery_mean": 73.39038848876953,
+          "cpu_mean": 44.08039474487305,
+          "local_eval_accuracy": 0.4264705882352941,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 260,
+          "battery_mean": 71.76979064941406,
+          "cpu_mean": 44.29486846923828,
+          "local_eval_accuracy": 0.44776119402985076,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "1": 131.64553362649946,
+          "0": 135.34739151000977,
+          "2": 130.6210189819336
+        },
+        "trust_scores": {
+          "1": 0.7,
+          "0": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "1": 0.7339038848876953,
+          "0": 0.7214679718017578,
+          "2": 0.7176979064941407
+        },
+        "anomaly_factors": {
+          "1": 0.9855883348384172,
+          "0": 1.0,
+          "2": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 10,
+      "label": "Round 10 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.4314516129032258,
+        "loss": 1.7018505334854126,
+        "precision_macro": 0.49904776519747246,
+        "recall_macro": 0.3797653958944282,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.5009522348025275,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.72,
+        "epsilon": 0.9879871119431002,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 1.0121589521884287,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 0.9879871119431002,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 1.016086653196354,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 0.9841680302110559,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 1.0076046335854585,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 0.9924527604062338,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 1.0127855697834731,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 0.9873758373293109,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.44776119402985076,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.5230769230769231,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 1,
+          "battery_mean": null,
+          "cpu_mean": null,
+          "local_eval_accuracy": 0.47692307692307695,
+          "local_epochs": 0.0,
+          "batch_size": 0
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 0.5249999999999999,
+          "1": 0.5249999999999999,
+          "2": 0.5249999999999999
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "1": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "0": 0.75,
+          "1": 0.75,
+          "2": 0.75
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 11,
+      "label": "Round 11 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; FL round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.5551075268817204,
+        "loss": 1.4647789001464844,
+        "precision_macro": 0.5926634484489615,
+        "recall_macro": 0.5146627565982406,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.40733655155103854,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.7196846262613933,
+        "epsilon": 1.0179861914182202,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9823315958803306,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0179861914182202,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9806619581578507,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0197193759595562,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.986276268998177,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0139146924986475,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9800565604849638,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0203492740308453,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 268,
+          "battery_mean": 72.61495971679688,
+          "cpu_mean": 45.200443267822266,
+          "local_eval_accuracy": 0.47058823529411764,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 268,
+          "battery_mean": 70.04557037353516,
+          "cpu_mean": 45.40331268310547,
+          "local_eval_accuracy": 0.4411764705882353,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 268,
+          "battery_mean": 73.24485778808594,
+          "cpu_mean": 46.71701431274414,
+          "local_eval_accuracy": 0.47058823529411764,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "1": 131.40549002075196,
+          "2": 137.4073532104492,
+          "0": 130.47139671119206
+        },
+        "trust_scores": {
+          "1": 0.7,
+          "2": 0.7,
+          "0": 0.7
+        },
+        "resource_factors": {
+          "1": 0.7004557037353516,
+          "2": 0.7324485778808594,
+          "0": 0.7261495971679688
+        },
+        "anomaly_factors": {
+          "1": 1.0,
+          "2": 1.0,
+          "0": 0.9577592978411923
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 12,
+      "label": "Round 12 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.385752688172043,
+        "loss": 1.5732910633087158,
+        "precision_macro": 0.4123766877291637,
+        "recall_macro": 0.32991202346041054,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.5876233122708363,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.7243565877278645,
+        "epsilon": 1.022624354790239,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9778761823104833,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 1.022624354790239,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9774085308386936,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0231136402522711,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.9808688491374172,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0195042903843943,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9753511669553394,
+            "freq_n": 2,
+            "update_frequency": 2,
+            "epsilon": 1.0252717522465313,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 268,
+          "battery_mean": 72.14679718017578,
+          "cpu_mean": 46.750709533691406,
+          "local_eval_accuracy": 0.5441176470588235,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 260,
+          "battery_mean": 73.39038848876953,
+          "cpu_mean": 44.08039474487305,
+          "local_eval_accuracy": 0.5,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 260,
+          "battery_mean": 71.76979064941406,
+          "cpu_mean": 44.29486846923828,
+          "local_eval_accuracy": 0.5671641791044776,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 130.6210189819336,
+          "1": 133.57050704956055,
+          "0": 130.7599380035008
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "1": 0.7,
+          "0": 0.7
+        },
+        "resource_factors": {
+          "2": 0.7176979064941407,
+          "1": 0.7339038848876953,
+          "0": 0.7214679718017578
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "1": 1.0,
+          "0": 0.9661060811344139
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 13,
+      "label": "Round 13 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "East Asia",
+        "place": "Beijing, China",
+        "gps_wgs84": "39.9042°N, 116.4074°E",
+        "training_scene": "Urban core electromagnetic clutter: dense Wi-Fi/BT and AP diversity; federated round targets DDoS / brute-force-like bursts embedded in high-volume legitimate traffic on edge IDS sliding windows."
+      },
+      "centralized": {
+        "accuracy": 0.8024193548387096,
+        "loss": 0.9374518990516663,
+        "precision_macro": 0.8267720359467934,
+        "recall_macro": 0.7844574780058651,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.17322796405320662,
+        "mission_criticality": 0.74,
+        "resource_availability": 0.7235266621907551,
+        "epsilon": 1.0083209176040637,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9917477486990594,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0083209176040637,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9928385481275396,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0072131081996833,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.98917585580238,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0109425883518355,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9932288421672585,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.006817318975521,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 0,
+          "num_examples": 268,
+          "battery_mean": 72.11705780029297,
+          "cpu_mean": 45.431976318359375,
+          "local_eval_accuracy": 0.3880597014925373,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 1,
+          "num_examples": 268,
+          "battery_mean": 72.8407974243164,
+          "cpu_mean": 45.357669830322266,
+          "local_eval_accuracy": 0.4153846153846154,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 2,
+          "num_examples": 268,
+          "battery_mean": 72.10014343261719,
+          "cpu_mean": 45.48664093017578,
+          "local_eval_accuracy": 0.38461538461538464,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 135.25986907958986,
+          "1": 136.64933596801757,
+          "0": 134.2578785252437
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "1": 0.7,
+          "0": 0.7
+        },
+        "resource_factors": {
+          "2": 0.7210014343261719,
+          "1": 0.7284079742431641,
+          "0": 0.7211705780029297
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "1": 1.0,
+          "0": 0.992359304607272
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 14,
+      "label": "Round 14 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "North Africa",
+        "place": "Sudan",
+        "gps_wgs84": "15.5007°N, 32.5599°E",
+        "training_scene": "Khartoum-area relay UAVs over arid corridors: mixed reconnaissance and scanning traffic with sporadic UDP-flooding bursts; FL round stresses long-range lossy backhaul and heterogeneous client shards."
+      },
+      "centralized": {
+        "accuracy": 0.6881720430107527,
+        "loss": 0.9337484836578369,
+        "precision_macro": 0.7154751055126994,
+        "recall_macro": 0.6598240469208211,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.28452489448730056,
+        "mission_criticality": 0.86,
+        "resource_availability": 0.7196846262613933,
+        "epsilon": 1.0748791570523835,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9303371392392399,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0748791570523835,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9307096912820911,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0744488956835279,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.9315348409016544,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0734971533990898,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9287668855339742,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0766964408136406,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 3,
+          "num_examples": 268,
+          "battery_mean": 72.61495971679688,
+          "cpu_mean": 45.200443267822266,
+          "local_eval_accuracy": 0.8676470588235294,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 4,
+          "num_examples": 268,
+          "battery_mean": 70.04557037353516,
+          "cpu_mean": 45.40331268310547,
+          "local_eval_accuracy": 0.8823529411764706,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 5,
+          "num_examples": 268,
+          "battery_mean": 73.24485778808594,
+          "cpu_mean": 46.71701431274414,
+          "local_eval_accuracy": 0.8823529411764706,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 136.22566442871093,
+          "2": 133.16940360066573,
+          "1": 131.40549002075196
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "2": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "0": 0.7261495971679688,
+          "2": 0.7324485778808594,
+          "1": 0.7004557037353516
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "2": 0.969157766955217,
+          "1": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    },
+    {
+      "id": 15,
+      "label": "Round 15 — live (this run)",
+      "phase": "post_round_eval",
+      "scenario": {
+        "region": "Middle East",
+        "place": "Tehran, Iran",
+        "gps_wgs84": "35.6892°N, 51.3890°E",
+        "training_scene": "德黑兰城区—山地边缘巡逻：间歇性 GNSS 多径与较强射频干扰下的 IDS 窗口；本轮联邦侧重干扰与去认证类窄带 UAV 中继链路模式。"
+      },
+      "centralized": {
+        "accuracy": 0.6263440860215054,
+        "loss": 1.121850848197937,
+        "precision_macro": 0.6276425273476197,
+        "recall_macro": 0.6319648093841642,
+        "test_windows": 744
+      },
+      "telemetry_pooled": {
+        "battery_soc_mean": 71.70693969726562,
+        "cpu_util_mean": 45.34122848510742
+      },
+      "rl_apc": {
+        "trust_scores_0_100": [
+          70.0,
+          70.0,
+          70.0
+        ],
+        "trust_mean": 0.7,
+        "threat_level": 0.3723574726523803,
+        "mission_criticality": 0.92,
+        "resource_availability": 0.7243565877278645,
+        "epsilon": 1.06584139186672,
+        "delta": 1e-05,
+        "clip_norm": 1.0,
+        "next_policy": {
+          "participate": 1,
+          "noise_scale": 0.9382259008055551,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.06584139186672,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "next_policy_per_uav": {
+          "0": {
+            "participate": 1,
+            "noise_scale": 0.9417088524829555,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0618993305238145,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "1": {
+            "participate": 1,
+            "noise_scale": 0.9377535897140231,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0663782159500552,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          },
+          "2": {
+            "participate": 1,
+            "noise_scale": 0.9352152602196865,
+            "freq_n": 1,
+            "update_frequency": 1,
+            "epsilon": 1.0692725434838342,
+            "delta": 1e-05,
+            "clip_norm": 1.0
+          }
+        }
+      },
+      "fit_clients": [
+        {
+          "slot": "UAV-0",
+          "split_index": 6,
+          "num_examples": 268,
+          "battery_mean": 72.14679718017578,
+          "cpu_mean": 46.750709533691406,
+          "local_eval_accuracy": 0.7205882352941176,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-1",
+          "split_index": 7,
+          "num_examples": 260,
+          "battery_mean": 73.39038848876953,
+          "cpu_mean": 44.08039474487305,
+          "local_eval_accuracy": 0.75,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        },
+        {
+          "slot": "UAV-2",
+          "split_index": 8,
+          "num_examples": 260,
+          "battery_mean": 71.76979064941406,
+          "cpu_mean": 44.29486846923828,
+          "local_eval_accuracy": 0.7910447761194029,
+          "local_epochs": 2.0,
+          "batch_size": 32
+        }
+      ],
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 135.34739151000977,
+          "1": 133.57050704956055,
+          "2": 129.9737327173632
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "1": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "0": 0.7214679718017578,
+          "1": 0.7339038848876953,
+          "2": 0.7176979064941407
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 0.9950445474272412
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      }
+    }
+  ]
+}

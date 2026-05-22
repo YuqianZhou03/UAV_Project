@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FL-UAV · Federated onboard IDS console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+  </head>
+  <body>
+    <div class="hud-grid" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="hex"></span>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title" id="sysName">FL-UAV Swarm IDS</h1>
+          <p class="brand-sub" id="sysSubtitle"></p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="status-pill" title="Offline snapshot; replace data/rounds_en.json to refresh">
+          <span class="pulse"></span>
+          <span>IDS FEDERATED CONSOLE</span>
+        </div>
+        <p class="mono tiny" id="sysTransport"></p>
+        <p class="mono tiny" style="margin-top: 0.35rem">
+          <a href="../" style="color: var(--accent)">中文版 Chinese</a>
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <nav class="round-rail" aria-label="Page navigation">
+        <p class="rail-label">NAV</p>
+        <div class="round-buttons" id="roundButtons"></div>
+        <p class="rail-hint">
+          <strong>Overview</strong>: architecture and three mission theatres. <strong>Dataset</strong>: UAV-NIDD provenance, cleaning, CNN+LSTM inputs, and demo accuracy. <strong>Workflow</strong>: one Python simulation — server fit → local IDS → uplink → APC policy.
+        </p>
+      </nav>
+
+      <section class="content" id="mainContent">
+        <div id="viewOverview" class="view-panel">
+          <div class="panel hero-panel overview-hero">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-cyan">SYSTEM OVERVIEW</span>
+              <h2 class="hero-title">End-to-end system walkthrough</h2>
+              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="Topology help">?</button>
+            </div>
+            <p class="scenario-desc overview-lead">
+              Four modules mirror the repo:
+              <span class="mono-inline">client.py</span>,
+              <span class="mono-inline">server.py</span> (Flower FedAvg + centralized IDS eval),
+              <span class="mono-inline">RL_module</span>, and
+              <span class="mono-inline">apc_module</span>. Below: three anchored theatres (WGS84 + narrative for situational context; training tensors are described on the <strong>Dataset</strong> tab).
+            </p>
+          </div>
+
+          <div class="panel arch-panel">
+            <div class="panel-head">
+              <h3>Four-component data flow</h3>
+              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="Help">?</button>
+            </div>
+            <p class="panel-lead">
+              Solid lines: forward / interactive paths. Dashed line: APC policy feedback into the next federated fit configuration.
+            </p>
+            <div class="arch-wrap" id="archDiagramHost"></div>
+          </div>
+
+          <div class="panel theatre-panel">
+            <div class="panel-head">
+              <h3>Three-theatre evaluation</h3>
+              <button type="button" class="hint-btn" data-glossary-id="theatres" aria-label="Help">?</button>
+            </div>
+            <p class="panel-lead">
+              Three anchored theatres (Beijing, Sudan, Tehran): WGS84 and narrative for maps and logs; IDS tensors come from the pipeline on the <strong>Dataset</strong> tab.
+            </p>
+            <div class="theatre-grid" id="theatreGrid"></div>
+          </div>
+        </div>
+
+        <div id="viewDataset" class="view-panel is-hidden">
+          <div class="panel hero-panel">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-cyan">DATA · PIPELINE</span>
+              <h2 class="hero-title">Dataset provenance &amp; CNN+LSTM pipeline</h2>
+            </div>
+            <p class="scenario-desc overview-lead">
+              How tabular UAV-network traces become <span class="mono-inline">data/swarm_processed/</span> windows, how they are cleaned, how
+              synthetic telemetry is fused, and what <span class="mono-inline">CnnLstmIDS</span> (CNN + LSTM) achieves on the global holdout in this
+              dashboard snapshot.
+            </p>
+          </div>
+
+          <div class="panel dataset-story dataset-authority">
+            <div class="panel-head">
+              <h3>Authority: physical testbed &amp; real-flight captures</h3>
+            </div>
+            <p class="panel-lead">
+              The UAV-NIDD paper is published in <strong>IEEE Transactions on Network Science and Engineering</strong> (2025, DOI
+              <a href="https://doi.org/10.1109/TNSE.2025.3553442" rel="noopener noreferrer">10.1109/TNSE.2025.3553442</a>); raw captures are on
+              <a href="https://doi.org/10.6084/m9.figshare.25486462" rel="noopener noreferrer">Figshare</a>. The official README and repository are maintained by
+              <strong>KAUST CyberSar Lab</strong> and match the paper’s description—easy to audit and cite.
+            </p>
+            <p>
+              Unlike purely synthetic labels, UAV-NIDD stresses a <strong>physical UAV network testbed</strong> and traffic recorded during
+              <strong>real flight</strong> under <strong>benign and attack</strong> conditions. The two English excerpts below are taken verbatim from that README (same wording as the paper’s companion release) to show the data are field-captured, not fictional scenarios:
+            </p>
+            <blockquote cite="https://github.com/CyberSaR-KAUST/UAV-Intrusion-Detection-Dataset">
+              <p>
+                “UAV-NIDD is a real-world, dynamic intrusion detection dataset collected from a physical UAV network
+                testbed. It includes benign traffic and ten cyber-attack types targeting UAVs, access points, and ground
+                control stations, designed to support research in UAV cybersecurity, IDS, and machine learning.”
+              </p>
+              <p>
+                “Traffic was captured during real flight operations under both benign and attack conditions.”
+              </p>
+            </blockquote>
+            <p class="dataset-cite-note">
+              Source: <span class="mono-inline">CyberSaR-KAUST/UAV-Intrusion-Detection-Dataset</span> README (paper companion).
+            </p>
+            <figure class="dataset-fig">
+              <img
+                src="../assets/uav-nidd-testbed-platforms.png"
+                alt="Real UAV platforms used in the UAV-NIDD testbed: DJI Mavic Air, DJI Mini 3 Pro, PX4 Vision Dev Kit v1.5"
+                loading="lazy"
+              />
+              <figcaption>
+                Hardware aligned with the public UAV-NIDD description: <strong>real airframes</strong> (DJI Mavic Air, DJI Mini 3 Pro, PX4 Vision Dev Kit v1.5). The testbed captures wireless/network traffic during real flights; features are then exported to tabular form. This repo’s
+                <span class="mono-inline">dataset/</span> CSVs follow the same multi-class intrusion setting for the sliding-window and federated pipeline.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>Paper alignment</h3>
+            </div>
+            <p class="panel-lead">
+              Academic reference: <strong>UAV-NIDD: A Dynamic Dataset for Cybersecurity and Intrusion Detection in UAV Networks</strong> — benign and attack traffic from a physical UAV-network testbed, released for IDS research (raw captures via
+              <a href="https://doi.org/10.6084/m9.figshare.25486462" rel="noopener noreferrer">Figshare DOI 10.6084/m9.figshare.25486462</a>).
+            </p>
+            <p>
+              This repository keeps <strong>per-attack CSV feature tables</strong> under <span class="mono-inline">dataset/</span> (Wireshark-style columns aligned with the Case1 header), spanning brute-force, DDoS, de-auth, fake landing, jamming, MITM, reconnaissance, scanning, UDP/ICMP flooding, and normal traffic — consistent with the multi-class UAV intrusion setting discussed in UAV-NIDD. A single preprocessing pipeline then sorts in time, fills missing fields, standardizes, and windows packets for both federated training and centralized evaluation.
+            </p>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>Cleaning &amp; windows (<span class="mono-inline">preprocess_swarm_federated.py</span>)</h3>
+            </div>
+            <ol>
+              <li>Load <strong>44</strong> numeric / factorized features per row, matching <span class="mono-inline">data/UAV-Case1-Label.csv</span> (missing columns become zeros).</li>
+              <li>Sort packets by <span class="mono-inline">frame.time_epoch</span> / <span class="mono-inline">frame.number</span>.</li>
+              <li>Fit <strong>StandardScaler</strong> on the training envelope (first ~75% of each file, concatenated), save <span class="mono-inline">packet_scaler.pkl</span>, transform all packets.</li>
+              <li>Slice <strong>length-16, stride-16</strong> windows; assign each window the <strong>majority label</strong> of packets inside.</li>
+              <li>Send the <strong>last 25%</strong> of each source file only to the pooled test split (<span class="mono-inline">test.npz</span>); stratify training windows into nine <span class="mono-inline">train_split_*.npz</span> shards for three UAV clients.</li>
+            </ol>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>Synthetic onboard telemetry (<span class="mono-inline">enrich_swarm_telemetry.py</span> + <span class="mono-inline">telemetry_synth.py</span>)</h3>
+            </div>
+            <p>
+              Append <strong>two</strong> channels per timestep — battery SOC (%) and CPU utilization (%) — aligned with traffic intensity, yielding tensors of shape <strong>16×46</strong> as in <span class="mono-inline">meta.json</span> (<span class="mono-inline">n_features=46</span>) before CNN+LSTM.
+            </p>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>Model &amp; evaluation</h3>
+            </div>
+            <p>
+              <span class="mono-inline">model.py</span> defines <strong>CnnLstmIDS</strong>: 1D convolutions over per-packet features, an LSTM over the 16-step sequence, then softmax over <span class="mono-inline">num_classes</span> labels. Centralized accuracy / loss / macro P/R are computed once per logged round on the global <span class="mono-inline">test.npz</span> holdout held by the server.
+            </p>
+          </div>
+
+          <div class="panel dataset-story dataset-false-alarm">
+            <div class="panel-head">
+              <h3>False alarms &amp; flight safety: why they matter more on UAVs</h3>
+            </div>
+            <p>
+              A high <strong>false-positive rate</strong> (benign traffic classified as an attack) is often harder to tolerate in real flight than an occasional miss: repeated alarms drive <strong>link-hardening, session isolation, or automated responses</strong>, which can make the <strong>telemetry / command link jitter or drop</strong>. On bandwidth- and power-limited aerial links, that instability sharply raises the risk of <strong>loss of control, forced landing, or crash</strong>. For UAV operations, <strong>keeping false alarms comparatively low</strong>—while preserving useful detection—is frequently the binding requirement for keeping the system online.
+            </p>
+            <p>
+              Training and centralized evaluation here track <strong>macro precision / recall</strong> alongside overall accuracy (see the cards below) to reduce “a few classes dominate false alarms” behavior on multi-class UAV traffic. If you need a published <strong>false-alarm rate (FAR)</strong> on benign windows, compute it explicitly from a confusion matrix on the holdout set and align it with your mission’s gating policy.
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Demo accuracy on this page</h3>
+            </div>
+            <p class="panel-lead">
+              Metrics below are taken from <span class="mono-inline">data/rounds_en.json</span> for the <strong>highest-index federation round</strong> in the snapshot (replaced by <span class="mono-inline">data/live_rounds.json</span> when your server writes it). Retrain locally and treat your own logs as ground truth.
+            </p>
+            <div class="metrics-grid" id="datasetEvalGrid"></div>
+          </div>
+        </div>
+
+        <div id="viewWorkflow" class="view-panel is-hidden">
+          <div class="panel hero-panel workflow-hero">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-warn">SIM · WORKFLOW</span>
+              <h2 class="hero-title">UAV edge security closed loop</h2>
+              <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="Help">?</button>
+            </div>
+            <p class="scenario-desc overview-lead">
+              One <strong>button</strong> runs the full path in Python: pull server-side fit parameters → run local
+              <span class="mono-inline">CnnLstmIDS</span> on window tensors from
+              <span class="mono-inline">test.npz</span> (loads <span class="mono-inline">checkpoints/fl_global_last.pt</span> when present; otherwise a randomly initialized demo weight — only for flow illustration) →
+              softmax argmax yields alert vs no-alert and class → simulate uplink → call
+              <span class="mono-inline">AdaptivePrivacyController</span> for next-round
+              <code>participate</code> / <code>noise_scale</code> / <code>freq_n</code> (<code>freq_n</code> = uplink every N rounds; often <code>1</code> when threat is low, larger under stress per APC rules).
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Run backend simulation</h3>
+              <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="Help">?</button>
+            </div>
+            <p class="panel-lead">
+              Start <code>python serve.py</code> inside <span class="mono-inline">dashboard</span> so this page and
+              <code>/api/uav-workflow</code> share the same origin. The handler imports
+              <span class="mono-inline">uav_workflow_sim.py</span> from the repository root and reads
+              <span class="mono-inline">data/swarm_processed/test.npz</span>.
+            </p>
+            <div id="workflowSceneHost" class="workflow-scene-host" aria-label="Three UAVs and server interaction"></div>
+            <div class="workflow-run-wrap">
+              <button type="button" id="workflowRunBtn" class="workflow-run-btn">Run full workflow once</button>
+            </div>
+            <p class="workflow-legend">
+              <strong>freq_n</strong>: allow an uplink only once every <strong>N</strong> federated rounds (see <span class="mono-inline">apc_module/rules.py</span>: benign settings often keep <code>N=1</code>; ramps up under higher threat or very low resources).
+              <strong>participate=0</strong>: skip aggregation this round and return global weights only.
+            </p>
+            <p id="workflowStatus" class="workflow-status mono tiny" aria-live="polite"></p>
+            <div id="workflowSteps" class="workflow-steps"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="glossary-aside">
+        <h3 class="glossary-title">Data dictionary</h3>
+        <p class="glossary-intro">Short definitions for briefing and audit trails.</p>
+        <div class="glossary-list" id="glossaryList"></div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

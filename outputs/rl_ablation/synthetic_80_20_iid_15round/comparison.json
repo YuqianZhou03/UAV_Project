@@ -1,0 +1,279 @@
+{
+  "baseline": "no_rl",
+  "variants": {
+    "no_apc": {
+      "variant": "no_apc",
+      "round": 15,
+      "accuracy": 1.0,
+      "loss": 0.04454360902309418,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "trust_mean": 0.7,
+      "threat_level": 0.0,
+      "next_participate": 1,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 1,
+      "next_epsilon": 1000000.0,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 70.0,
+      "final_malicious_trust": 70.0,
+      "aggregation_mode": "plain_fedavg",
+      "duration_sec": 33.88679309992585,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "plain_fedavg",
+        "effective_weights": {},
+        "trust_scores": {},
+        "resource_factors": {},
+        "anomaly_factors": {},
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\no_apc\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\no_apc\\live_rounds.json"
+    },
+    "no_rl": {
+      "variant": "no_rl",
+      "round": 15,
+      "accuracy": 0.6263440860215054,
+      "loss": 1.121850848197937,
+      "precision_macro": 0.6276425273476197,
+      "recall_macro": 0.6319648093841642,
+      "trust_mean": 0.7,
+      "threat_level": 0.3723574726523803,
+      "next_participate": 1,
+      "next_noise_scale": 0.9382259008055551,
+      "next_freq_n": 1,
+      "next_epsilon": 1.06584139186672,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 70.0,
+      "final_malicious_trust": 70.0,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 31.546038800035603,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.9417088524829555,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0618993305238145,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.9377535897140231,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0663782159500552,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.9352152602196865,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0692725434838342,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "0": 135.34739151000977,
+          "1": 133.57050704956055,
+          "2": 129.9737327173632
+        },
+        "trust_scores": {
+          "0": 0.7,
+          "1": 0.7,
+          "2": 0.7
+        },
+        "resource_factors": {
+          "0": 0.7214679718017578,
+          "1": 0.7339038848876953,
+          "2": 0.7176979064941407
+        },
+        "anomaly_factors": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 0.9950445474272412
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\no_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\no_rl\\live_rounds.json"
+    },
+    "with_rl": {
+      "variant": "with_rl",
+      "round": 15,
+      "accuracy": 0.6021505376344086,
+      "loss": 1.1243922710418701,
+      "precision_macro": 0.6384526450063952,
+      "recall_macro": 0.6033724340175953,
+      "trust_mean": 0.4448698425292969,
+      "threat_level": 0.3615473549936048,
+      "next_participate": 1,
+      "next_noise_scale": 0.9538864656778991,
+      "next_freq_n": 1,
+      "next_epsilon": 1.0483427912873566,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 44.48200035095215,
+      "final_malicious_trust": 44.4969482421875,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 35.01898480008822,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.9550531757071634,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.047062116996319,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.9539238361102819,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.04830172194627,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.952682385216252,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1.0496677754496397,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 85.55811705917353,
+          "1": 87.54371583805623,
+          "0": 88.62068631727382
+        },
+        "trust_scores": {
+          "2": 0.4585072326660156,
+          "1": 0.45878841400146486,
+          "0": 0.45870792388916015
+        },
+        "resource_factors": {
+          "2": 0.7176979064941407,
+          "1": 0.7339038848876953,
+          "0": 0.7214679718017578
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "1": 1.0,
+          "0": 0.9991875556818699
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\with_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\synthetic_80_20_iid_15round\\with_rl\\live_rounds.json"
+    }
+  },
+  "delta_minus_baseline": {
+    "no_apc": {
+      "accuracy": 0.3736559139784946,
+      "loss": -1.0773072391748428,
+      "precision_macro": 0.3723574726523803,
+      "recall_macro": 0.3680351906158358,
+      "trust_mean": 0.0,
+      "threat_level": -0.3723574726523803,
+      "next_noise_scale": -0.9382259008055551,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 0.0,
+      "final_malicious_trust": 0.0
+    },
+    "no_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 0.0,
+      "final_malicious_trust": 0.0
+    },
+    "with_rl": {
+      "accuracy": -0.024193548387096753,
+      "loss": 0.0025414228439331055,
+      "precision_macro": 0.010810117658775487,
+      "recall_macro": -0.02859237536656889,
+      "trust_mean": -0.25513015747070306,
+      "threat_level": -0.010810117658775487,
+      "next_noise_scale": 0.01566056487234402,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": -25.51799964904785,
+      "final_malicious_trust": -25.5030517578125
+    }
+  }
+}

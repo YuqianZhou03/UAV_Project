@@ -1,0 +1,181 @@
+{
+  "baseline": "no_rl",
+  "variants": {
+    "no_apc": {
+      "variant": "no_apc",
+      "round": 1,
+      "accuracy": 0.4138568129330254,
+      "loss": 2.295346736907959,
+      "precision_macro": 0.24834326450039393,
+      "recall_macro": 0.23046752624725003,
+      "trust_mean": 0.7,
+      "threat_level": 0.7516567354996061,
+      "next_participate": 1,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 1,
+      "next_epsilon": 1000000.0,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 30.103619100060314,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\no_apc\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\no_apc\\live_rounds.json"
+    },
+    "no_rl": {
+      "variant": "no_rl",
+      "round": 1,
+      "accuracy": 0.4138568129330254,
+      "loss": 2.295346736907959,
+      "precision_macro": 0.24834326450039393,
+      "recall_macro": 0.23046752624725003,
+      "trust_mean": 0.7,
+      "threat_level": 0.7516567354996061,
+      "next_participate": 0,
+      "next_noise_scale": 1.246975101887191,
+      "next_freq_n": 91,
+      "next_epsilon": 0.8019406309609428,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 29.714121100027114,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 0,
+          "noise_scale": 1.2405434669984752,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.8060983162641806,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 0,
+          "noise_scale": 1.2473430306180981,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.8017040825605674,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 0,
+          "noise_scale": 1.2530388080449997,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.7980598793745322,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\no_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\no_rl\\live_rounds.json"
+    },
+    "with_rl": {
+      "variant": "with_rl",
+      "round": 1,
+      "accuracy": 0.4138568129330254,
+      "loss": 2.295346736907959,
+      "precision_macro": 0.24834326450039393,
+      "recall_macro": 0.23046752624725003,
+      "trust_mean": 0.569525260925293,
+      "threat_level": 0.7516567354996061,
+      "next_participate": 0,
+      "next_noise_scale": 1.2889176835148615,
+      "next_freq_n": 91,
+      "next_epsilon": 0.7758447360835435,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 29.92213070008438,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 0,
+          "noise_scale": 1.2819237931844274,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.7800775719404502,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 0,
+          "noise_scale": 1.2893221832937534,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.7756013298750205,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 0,
+          "noise_scale": 1.2955070740664039,
+          "freq_n": 91,
+          "update_frequency": 91,
+          "epsilon": 0.7718985253095908,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\with_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\smoke_plan_impl_all\\with_rl\\live_rounds.json"
+    }
+  },
+  "delta_minus_baseline": {
+    "no_apc": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": -1.246975101887191,
+      "next_freq_n": -90.0
+    },
+    "no_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 0.0
+    },
+    "with_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": -0.13047473907470697,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.041942581627670394,
+      "next_freq_n": 0.0
+    }
+  }
+}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FL-UAV · 机载入侵检测联邦态势</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+  </head>
+  <body>
+    <div class="hud-grid" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="hex"></span>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title" id="sysName">FL-UAV Swarm IDS</h1>
+          <p class="brand-sub" id="sysSubtitle"></p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="status-pill" title="态势页为离线快照，可替换 data/rounds.json 更新">
+          <span class="pulse"></span>
+          <span>IDS FEDERATED CONSOLE</span>
+        </div>
+        <p class="mono tiny" id="sysTransport"></p>
+        <p class="mono tiny" style="margin-top: 0.35rem">
+          <a href="en/" style="color: var(--accent)">English version</a>
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <nav class="round-rail" aria-label="页面导航">
+        <p class="rail-label">NAV</p>
+        <div class="round-buttons" id="roundButtons"></div>
+        <p class="rail-hint">「系统总览」为架构与三地任务想定；「数据集」说明 UAV-NIDD 文献来源、清洗与 CNN+LSTM 输入及演示准确率；「工作流」一键调用后端 Python：拉取服务器参数 → 本地流量 IDS → 告警与上报 → APC 调整策略。</p>
+      </nav>
+
+      <section class="content" id="mainContent">
+        <div id="viewOverview" class="view-panel">
+          <div class="panel hero-panel overview-hero">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-cyan">SYSTEM OVERVIEW</span>
+              <h2 class="hero-title">系统整体演示</h2>
+              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="拓扑说明">?</button>
+            </div>
+            <p class="scenario-desc overview-lead">
+              四模块闭环对应仓库中的 <span class="mono-inline">client.py</span>、<span class="mono-inline">server.py</span>（Flower
+              FedAvg + 集中式 IDS 评估）、<span class="mono-inline">RL_module</span>、<span class="mono-inline">apc_module</span>。下方为三地任务想定（WGS84
+              锚点与叙事，仅用于态势展示；训练数据见「数据集」页）。
+            </p>
+          </div>
+
+          <div class="panel arch-panel">
+            <div class="panel-head">
+              <h3>四组件数据流</h3>
+              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="说明">?</button>
+            </div>
+            <p class="panel-lead">实线为前向/交互链路；虚线为 APC 策略回注至下一轮联邦 fit 配置。</p>
+            <div class="arch-wrap" id="archDiagramHost"></div>
+          </div>
+
+          <div class="panel theatre-panel">
+            <div class="panel-head">
+              <h3>三地测试剧场</h3>
+              <button type="button" class="hint-btn" data-glossary-id="theatres" aria-label="说明">?</button>
+            </div>
+            <p class="panel-lead">三组地理锚点想定（北京、苏丹、德黑兰）：WGS84 与任务叙事用于态势与日志；IDS 张量本身来自「数据集」页所述清洗管线。</p>
+            <div class="theatre-grid" id="theatreGrid"></div>
+          </div>
+        </div>
+
+        <div id="viewDataset" class="view-panel is-hidden">
+          <div class="panel hero-panel">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-cyan">DATA · PIPELINE</span>
+              <h2 class="hero-title">数据集来源与 CNN+LSTM 建模</h2>
+            </div>
+            <p class="scenario-desc overview-lead">
+              本页说明入侵检测张量如何从文献级 UAV 网络数据思想落地到仓库中的
+              <span class="mono-inline">dataset/</span> → <span class="mono-inline">data/swarm_processed/</span>，以及
+              <span class="mono-inline">CnnLstmIDS</span>（卷积 + LSTM）在全局 holdout 上的演示性准确率。
+            </p>
+          </div>
+
+          <div class="panel dataset-story dataset-authority">
+            <div class="panel-head">
+              <h3>来源权威性：物理试验台与真实飞行采集</h3>
+            </div>
+            <p class="panel-lead">
+              UAV-NIDD 对应论文发表于 <strong>IEEE Transactions on Network Science and Engineering</strong>（2025，DOI
+              <a href="https://doi.org/10.1109/TNSE.2025.3553442" rel="noopener noreferrer">10.1109/TNSE.2025.3553442</a>）；原始流量见
+              <a href="https://doi.org/10.6084/m9.figshare.25486462" rel="noopener noreferrer">Figshare</a>。公开仓库与说明由
+              <strong>KAUST CyberSar Lab</strong> 维护，与论文同源，便于复核与引用。
+            </p>
+            <p>
+              与「仅仿真标签」不同，该数据集强调在<strong>真实 UAV 网络试验台</strong>上采集，并在<strong>真实飞行</strong>过程中同时记录<strong>正常与攻击条件下</strong>的网络流量。以下两段为官方 README 中的英文原文摘录（与论文表述一致），用于说明数据来自实机而非虚构场景：
+            </p>
+            <blockquote cite="https://github.com/CyberSaR-KAUST/UAV-Intrusion-Detection-Dataset">
+              <p>
+                “UAV-NIDD is a real-world, dynamic intrusion detection dataset collected from a physical UAV network
+                testbed. It includes benign traffic and ten cyber-attack types targeting UAVs, access points, and ground
+                control stations, designed to support research in UAV cybersecurity, IDS, and machine learning.”
+              </p>
+              <p>
+                “Traffic was captured during real flight operations under both benign and attack conditions.”
+              </p>
+            </blockquote>
+            <p class="dataset-cite-note">
+              摘录出处：<span class="mono-inline">CyberSaR-KAUST/UAV-Intrusion-Detection-Dataset</span> 仓库 README（论文配套发布）。
+            </p>
+            <figure class="dataset-fig">
+              <img
+                src="assets/uav-nidd-testbed-platforms.png"
+                alt="UAV-NIDD 试验台所用真实 UAV 平台：DJI Mavic Air、DJI Mini 3 Pro、PX4 Vision Dev Kit v1.5"
+                loading="lazy"
+              />
+              <figcaption>
+                与公开材料一致的<strong>实机平台</strong>（DJI Mavic Air、DJI Mini 3 Pro、PX4 Vision Dev Kit v1.5）。试验台在真实飞行中采集无线/网络流量，经特征提取后形成表格化数据；本仓库
+                <span class="mono-inline">dataset/</span> 中的 CSV 与该多类攻击设定对齐，用于后续滑窗与联邦训练管线。
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>文献与数据对齐</h3>
+            </div>
+            <p class="panel-lead">
+              学术基准：<strong>UAV-NIDD: A Dynamic Dataset for Cybersecurity and Intrusion Detection in UAV Networks</strong>。该工作在物理
+              UAV 网络试验台上采集正常与多类攻击流量，并提供面向 UAV 入侵检测研究的公开资源（原始 PCAP 等见
+              <a href="https://doi.org/10.6084/m9.figshare.25486462" rel="noopener noreferrer">Figshare DOI 10.6084/m9.figshare.25486462</a>）。
+            </p>
+            <p>
+              本仓库在 <span class="mono-inline">dataset/</span> 中维护<strong>按攻击类别分文件的表格化流量特征</strong>（Wireshark
+              风格字段列，与 Case1 特征命名对齐），覆盖暴力破解、DDoS、去认证、伪造降落、干扰、MITM、侦察、扫描、UDP/ICMP 洪水及正常类等，与
+              UAV-NIDD 一文强调的 UAV 网络多类入侵检测场景一致；随后经统一脚本做时间排序、缺失列补零、标准化与滑窗，供联邦与集中式评估共用。
+            </p>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>清洗与滑窗（<span class="mono-inline">preprocess_swarm_federated.py</span>）</h3>
+            </div>
+            <ol>
+              <li>从各 CSV 读取与 <span class="mono-inline">data/UAV-Case1-Label.csv</span> 表头一致的 <strong>44 维</strong>无线/网络侧数值特征（缺列补零，非数值列因子化）。</li>
+              <li>按 <span class="mono-inline">frame.time_epoch</span> / <span class="mono-inline">frame.number</span> 做<strong>时间顺序</strong>排列。</li>
+              <li>在「各文件前 75% 包」拼成的训练包络上拟合 <strong>StandardScaler</strong>，并写入 <span class="mono-inline">packet_scaler.pkl</span>；对全量包做变换。</li>
+              <li>以 <strong>窗口长度 16、步长 16</strong> 将包序列切成样本；窗口标签取窗内包的<strong>多数类</strong>。</li>
+              <li>每个源文件的<strong>末 25% 包</strong>仅进入全局测试池，汇总为 <span class="mono-inline">test.npz</span>；训练窗按类别分层轮询拆成 9 份 <span class="mono-inline">train_split_*.npz</span>，供三机联邦分片。</li>
+            </ol>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>合成机载遥测（<span class="mono-inline">enrich_swarm_telemetry.py</span> + <span class="mono-inline">telemetry_synth.py</span>）</h3>
+            </div>
+            <p>
+              在 44 维 IDS 特征上为每个时间步拼接<strong>2 维</strong>与流量对齐的合成遥测：<strong>电池 SOC（%）</strong>与
+              <strong>CPU 利用率（%）</strong>，使每个窗口形状为 <strong>16×46</strong>，与当前 <span class="mono-inline">meta.json</span> 中
+              <span class="mono-inline">n_features=46</span> 一致，再输入 CNN+LSTM。
+            </p>
+          </div>
+
+          <div class="panel dataset-story">
+            <div class="panel-head">
+              <h3>模型与评估</h3>
+            </div>
+            <p>
+              分类器为仓库内 <span class="mono-inline">model.py</span> 的 <strong>CnnLstmIDS</strong>：对每架机的窗口张量先做 1D 卷积提取局部模式，再用
+              LSTM 建模跨包时序，最后 softmax 输出 <span class="mono-inline">num_classes</span> 类入侵/正常标签。全局泛化指标在服务器持有的
+              <span class="mono-inline">test.npz</span> 上做一次集中式前向（与联邦轮次日志中的 centralized eval 一致）。
+            </p>
+          </div>
+
+          <div class="panel dataset-story dataset-false-alarm">
+            <div class="panel-head">
+              <h3>误报与飞行安全：为何在 UAV 上更关键</h3>
+            </div>
+            <p>
+              机载 IDS 若<strong>误报率（把正常流量判成攻击 / False Positive）</strong>偏高，在真实飞行中往往比「漏报一次」更难承受：频繁告警会驱动<strong>链路保护、会话隔离或自动化处置</strong>反复触发，造成<strong>数传 / 指控链路抖动甚至中断</strong>；在带宽与能量本就受限的空域任务里，这种不稳定会显著抬升<strong>失控、迫降乃至坠机</strong>的风险。因此，对无人机而言，<strong>在可接受检出能力前提下保持相对较低的误报</strong>，常常是系统能否长期在线的首要约束。
+            </p>
+            <p>
+              本仓库在 <span class="mono-inline">CnnLstmIDS</span> 的训练与集中式评估中，除整体准确率外，同时关注<strong>Macro 精确率 / 召回</strong>等类均衡指标（见下方演示卡片），用于抑制「少数类被滥报、多数类正常流量被大面积误判」的倾向。若需对外给出<strong>窗口级误警率（FAR）</strong>或正常类上的假阳性比例，应在 holdout 集上基于混淆矩阵<strong>单独统计</strong>并与任务放行策略一并标定。
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>本页展示的演示准确率</h3>
+            </div>
+            <p class="panel-lead">
+              下列数字来自随附快照 <span class="mono-inline">data/rounds.json</span> 中<strong>联邦序号最大的一轮</strong>在全局测试窗上的集中式结果；若存在
+              <span class="mono-inline">data/live_rounds.json</span> 则与实时 server 运行对齐。重新训练后请以你本地日志与 checkpoint 为准。
+            </p>
+            <div class="metrics-grid" id="datasetEvalGrid"></div>
+          </div>
+        </div>
+
+        <div id="viewWorkflow" class="view-panel is-hidden">
+          <div class="panel hero-panel workflow-hero">
+            <div class="panel-corner tl"></div>
+            <div class="panel-corner tr"></div>
+            <div class="panel-corner bl"></div>
+            <div class="panel-corner br"></div>
+            <div class="hero-top">
+              <span class="tag tag-warn">SIM · WORKFLOW</span>
+              <h2 class="hero-title">无人机边缘安全闭环</h2>
+              <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="说明">?</button>
+            </div>
+            <p class="scenario-desc overview-lead">
+              点击下方<strong>一个按钮</strong>即可触发完整链路：向服务器取得本机训练参数 → 在板端对
+              <span class="mono-inline">test.npz</span> 中的真实窗口张量运行本地
+              <span class="mono-inline">CnnLstmIDS</span>（若存在
+              <span class="mono-inline">checkpoints/fl_global_last.pt</span> 则加载联邦权重；否则使用随机初始化的演示权重，结论仅作流程示意）→
+              按 softmax argmax 判定是否告警及类别 → 模拟上行上报 → 服务器侧调用
+              <span class="mono-inline">AdaptivePrivacyController</span> 输出下一轮
+              <code>participate</code> / <code>noise_scale</code> / <code>freq_n</code>（<code>freq_n</code> 为「每 N 轮上传一次」；低威胁时常为 1，威胁升高或资源紧张时在 APC 配置区间内增大）。
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h3>一键运行后端模拟</h3>
+              <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="说明">?</button>
+            </div>
+            <p class="panel-lead">
+              必须在 <span class="mono-inline">dashboard</span> 目录启动 <code>python serve.py</code>，页面与
+              <code>/api/uav-workflow</code> 同源；仓库根目录模块 <span class="mono-inline">uav_workflow_sim.py</span> 会读取
+              <span class="mono-inline">data/swarm_processed/test.npz</span>。
+            </p>
+            <div id="workflowSceneHost" class="workflow-scene-host" aria-label="三机与服务器交互示意"></div>
+            <div class="workflow-run-wrap">
+              <button type="button" id="workflowRunBtn" class="workflow-run-btn">运行一次完整流程</button>
+            </div>
+            <p class="workflow-legend">
+              <strong>freq_n</strong>：每 <strong>N</strong> 个联邦全局轮才允许上传一次本地更新（与 <span class="mono-inline">apc_module/rules.py</span> 中 frequency 规则一致：常态多为 1，高威胁时 N 增大）。<strong>participate=0</strong>：本轮不参与聚合，仅回传全局权重。
+            </p>
+            <p id="workflowStatus" class="workflow-status mono tiny" aria-live="polite"></p>
+            <div id="workflowSteps" class="workflow-steps"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="glossary-aside">
+        <h3 class="glossary-title">数据词典</h3>
+        <p class="glossary-intro">指标与策略字段的简要定义，便于任务简报与审计。</p>
+        <div class="glossary-list" id="glossaryList"></div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

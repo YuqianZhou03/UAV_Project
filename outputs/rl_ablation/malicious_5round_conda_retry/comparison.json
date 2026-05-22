@@ -1,0 +1,181 @@
+{
+  "baseline": "no_rl",
+  "variants": {
+    "no_apc": {
+      "variant": "no_apc",
+      "round": 5,
+      "accuracy": 0.2907291322995711,
+      "loss": 2.1185081005096436,
+      "precision_macro": 0.15704733069397694,
+      "recall_macro": 0.1688048175389158,
+      "trust_mean": 0.7,
+      "threat_level": 0.8429526693060231,
+      "next_participate": 1,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 1,
+      "next_epsilon": 1000000.0,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 66.76970820000861,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\no_apc\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\no_apc\\live_rounds.json"
+    },
+    "no_rl": {
+      "variant": "no_rl",
+      "round": 5,
+      "accuracy": 0.18554932365555923,
+      "loss": 2.416551113128662,
+      "precision_macro": 0.01876417990124116,
+      "recall_macro": 0.1,
+      "trust_mean": 0.7,
+      "threat_level": 0.9812358200987589,
+      "next_participate": 0,
+      "next_noise_scale": 1.2237126062528683,
+      "next_freq_n": 96,
+      "next_epsilon": 0.8171853381997111,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 39.129356599994935,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 0,
+          "noise_scale": 1.2237126062528683,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.8171853381997111,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 0,
+          "noise_scale": 1.2237126062528683,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.8171853381997111,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 0,
+          "noise_scale": 1.2237126062528683,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.8171853381997111,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\no_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\no_rl\\live_rounds.json"
+    },
+    "with_rl": {
+      "variant": "with_rl",
+      "round": 5,
+      "accuracy": 0.18554932365555923,
+      "loss": 2.416551113128662,
+      "precision_macro": 0.01876417990124116,
+      "recall_macro": 0.1,
+      "trust_mean": 0.5823594665527344,
+      "threat_level": 0.9812358200987589,
+      "next_participate": 0,
+      "next_noise_scale": 1.2599897793372214,
+      "next_freq_n": 96,
+      "next_epsilon": 0.7936572315102579,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "duration_sec": 38.53624239994679,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 0,
+          "noise_scale": 1.2599897793372214,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.7936572315102579,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 0,
+          "noise_scale": 1.2599897793372214,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.7936572315102579,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 0,
+          "noise_scale": 1.2599897793372214,
+          "freq_n": 96,
+          "update_frequency": 96,
+          "epsilon": 0.7936572315102579,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "server_log": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\with_rl\\server.log",
+      "live_rounds": "D:\\Documents\\UAV_Project-main\\UAV_Project-main\\outputs\\rl_ablation\\malicious_5round_conda_retry\\with_rl\\live_rounds.json"
+    }
+  },
+  "delta_minus_baseline": {
+    "no_apc": {
+      "accuracy": 0.10517980864401186,
+      "loss": -0.29804301261901855,
+      "precision_macro": 0.1382831507927358,
+      "recall_macro": 0.06880481753891579,
+      "trust_mean": 0.0,
+      "threat_level": -0.1382831507927358,
+      "next_noise_scale": -1.2237126062528683,
+      "next_freq_n": -95.0
+    },
+    "no_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 0.0
+    },
+    "with_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": -0.11764053344726555,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.03627717308435319,
+      "next_freq_n": 0.0
+    }
+  }
+}
