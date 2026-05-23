@@ -24,6 +24,7 @@ import torch.nn as nn
 
 from apc_module import AdaptivePrivacyController
 from model import CnnLstmIDS, set_model_parameters
+from scenario_config import TELEM_BATTERY_IDX, TELEM_CPU_IDX
 
 REPO = Path(__file__).resolve().parent
 SWARM = REPO / "data" / "swarm_processed"
@@ -317,189 +318,54 @@ def _simulate_uav_edge(
     meta: dict[str, Any],
     names: list[str],
     X_all: np.ndarray,
+    X_noisy_all: np.ndarray,
     y_all: np.ndarray,
     non_attack_id: int,
-    pool_benign_model: np.ndarray,
-    pool_attack_model: np.ndarray,
-    feat_std: np.ndarray,
-    lim_lo: float,
-    lim_hi: float,
 ) -> dict[str, Any]:
-    """One UAV: build batch from model-calibrated pools, align, real argmax vs non-attack id."""
+    """One UAV: sample random noisy windows and decide from aggregated CNN-LSTM outputs."""
     idx, benign_proto, from_attack_pool = _pick_proto_index(y_all, meta, mode, rng)
     true_id = int(y_all[idx])
     lid_normal = meta_label_id(meta, "Normal")
     sid = int(non_attack_id)
 
-    if benign_proto:
-        pool = pool_benign_model
-        true_name = names[lid_normal] if 0 <= lid_normal < len(names) else "Normal"
-    else:
-        pool = pool_attack_model
-        true_name = names[true_id] if 0 <= true_id < len(names) else str(true_id)
-    if pool.size == 0:
-        raise ValueError("empty model-calibrated pool for synthetic batch")
-
-    # Keep attack batches on the same true IDS label as the sampled prototype. Otherwise
-    # `_sampled_pool_best` recenters on a global "easiest not-MITM" window (often DDoS-like)
-    # while `true_label` still reflected the random prototype — collapsing predictions.
-    if not benign_proto:
-        pool_same = pool[
-            np.isin(pool.astype(np.int64, copy=False), _indices_for_class(y_all, true_id))
-        ]
-        if pool_same.size > 0:
-            pool = pool_same
-
-    fill_pool = pool
-
     batch_sz = int(rng.integers(16, min(65, max(17, len(X_all)))))
     batch_sz = min(batch_sz, len(X_all))
-    center_rel = min(max(batch_sz // 2, 0), batch_sz - 1)
-
-    n_first = int(min(_SCORE_SAMPLE, pool.size))
-    n_wide = int(min(_MAX_POOL_BRUTE, pool.size))
-    best_j, _, _ = _sampled_pool_best(
-        net,
-        X_all,
-        pool,
-        benign_proto=benign_proto,
-        non_attack_id=sid,
-        batch_b=batch_sz,
-        center_rel=center_rel,
-        rng=rng,
-        n_samples=max(n_first, 1),
-    )
-    center_idx = int(best_j)
-    if n_wide > n_first:
-        best_j2, sc2, _ = _sampled_pool_best(
-            net,
-            X_all,
-            pool,
-            benign_proto=benign_proto,
-            non_attack_id=sid,
-            batch_b=batch_sz,
-            center_rel=center_rel,
-            rng=rng,
-            n_samples=n_wide,
-        )
-        _, sc1 = _score_window_as_batch(
-            net, X_all, best_j, batch_sz, center_rel, benign_proto=benign_proto, non_attack_id=sid
-        )
-        if sc2 > sc1:
-            best_j = best_j2
-            center_idx = int(best_j2)
-
-    w_best = np.asarray(X_all[best_j], dtype=np.float32)
-    X_np = _build_diversified_batch(X_all, pool, w_best, batch_sz, center_rel, rng)
-
-    align_loops = 0
-    noise_scale = 0.05
-    min_conf = float(_MIN_ALIGN_CONF)
-    for align_loops in range(1, 96):
-        xt = torch.tensor(
-            np.clip(
-                X_np + rng.standard_normal(X_np.shape).astype(np.float32) * (noise_scale * feat_std),
-                lim_lo,
-                lim_hi,
-            ),
-            dtype=torch.float32,
-        )
-        with torch.no_grad():
-            pr = torch.softmax(net(xt), dim=-1)
-        cr_it = int(np.clip(center_rel, 0, batch_sz - 1))
-        pc = pr[cr_it]
-        pred_id = int(pc.argmax().item())
-        if benign_proto:
-            if pred_id == sid and float(pc[sid].item()) >= min_conf:
-                X_np = xt.numpy().astype(np.float32)
-                break
-        else:
-            if pred_id != sid and float(pc.max().item()) >= min_conf:
-                X_np = xt.numpy().astype(np.float32)
-                break
-        noise_scale *= 0.87
-        if noise_scale < 1e-6:
-            noise_scale = 0.0
-        if noise_scale == 0.0:
-            X_np = _build_diversified_batch(X_all, pool, w_best, batch_sz, center_rel, rng)
-        if align_loops in (32, 64):
-            min_conf = float(_MIN_ALIGN_CONF_RELAX)
+    # Keep each UAV batch class-consistent so simulated accuracy reflects
+    # noisy-window inference quality of the checkpointed CNN-LSTM.
+    class_pool = _indices_for_class(y_all, true_id)
+    if class_pool.size > 0:
+        pool = class_pool
     else:
-        X_np = _build_diversified_batch(X_all, pool, w_best, batch_sz, center_rel, rng)
+        normals = _normal_indices(y_all, lid_normal)
+        attacks = _attack_indices(y_all, lid_normal)
+        if benign_proto and normals.size > 0:
+            pool = normals
+        elif (not benign_proto) and attacks.size > 0:
+            pool = attacks
+        else:
+            pool = np.arange(len(X_all), dtype=np.int64)
+    if pool.size == 0:
+        raise ValueError("empty test pool for UAV simulation")
 
-    pc, _, cr = _center_probs(net, X_np, center_rel)
-    pred_id = int(pc.argmax().item())
+    sampled_idx = rng.choice(pool, size=batch_sz, replace=pool.size < batch_sz)
+    sampled_idx = np.asarray(sampled_idx, dtype=np.int64)
+    X_np = np.asarray(X_noisy_all[sampled_idx], dtype=np.float32)
 
-    def _scan_argmax_match(*, want_benign: bool, scan_pool: np.ndarray, max_try: int) -> int | None:
-        if scan_pool.size == 0:
-            return None
-        ntry = int(min(scan_pool.size, max_try))
-        order = rng.permutation(scan_pool)[:ntry]
-        for j in order:
-            jj = int(j)
-            w = np.asarray(X_all[jj], dtype=np.float32)
-            Xb = np.repeat(w[None, ...], batch_sz, axis=0)
-            pc2, _, _ = _center_probs(net, Xb, center_rel)
-            prd = int(pc2.argmax().item())
-            if want_benign:
-                if prd == sid:
-                    return jj
-            else:
-                if prd != sid:
-                    return jj
-        return None
+    center_idx = int(idx)
+    center_rel = -1
+    true_name = names[true_id] if 0 <= true_id < len(names) else str(true_id)
 
-    if benign_proto and pred_id != sid:
-        hit = _scan_argmax_match(want_benign=True, scan_pool=pool, max_try=8000)
-        if hit is not None:
-            w_best = np.asarray(X_all[hit], dtype=np.float32)
-            center_idx = int(hit)
-            X_np = _build_diversified_batch(X_all, pool, w_best, batch_sz, center_rel, rng)
-            pc, _, cr = _center_probs(net, X_np, center_rel)
-            pred_id = int(pc.argmax().item())
+    xt = torch.tensor(X_np, dtype=torch.float32)
+    with torch.no_grad():
+        probs = torch.softmax(net(xt), dim=-1)
+    mean_probs = probs.mean(dim=0)
+    vote_ids = probs.argmax(dim=1)
+    uniq_pred, cnt_pred = np.unique(vote_ids.cpu().numpy(), return_counts=True)
+    pred_id = int(uniq_pred[int(np.argmax(cnt_pred))]) if uniq_pred.size else int(mean_probs.argmax().item())
+    align_loops = 1
 
-    if (not benign_proto) and pred_id == sid:
-        if pool.size > 0:
-            best_aj, _, _ = _sampled_pool_best(
-                net,
-                X_all,
-                pool,
-                benign_proto=False,
-                non_attack_id=sid,
-                batch_b=batch_sz,
-                center_rel=center_rel,
-                rng=rng,
-                n_samples=int(min(_MAX_POOL_BRUTE, pool.size)),
-            )
-            w_a = np.asarray(X_all[best_aj], dtype=np.float32)
-            center_idx = int(best_aj)
-            fill_pool = pool
-            X_np = _build_diversified_batch(X_all, fill_pool, w_a, batch_sz, center_rel, rng)
-            pc, _, cr = _center_probs(net, X_np, center_rel)
-            pred_id = int(pc.argmax().item())
-        if pred_id == sid:
-            hit = _scan_argmax_match(want_benign=False, scan_pool=pool, max_try=8000)
-            if hit is not None:
-                fill_pool = pool
-                w_hit = np.asarray(X_all[hit], dtype=np.float32)
-                center_idx = int(hit)
-                X_np = _build_diversified_batch(X_all, fill_pool, w_hit, batch_sz, center_rel, rng)
-                pc, _, cr = _center_probs(net, X_np, center_rel)
-                pred_id = int(pc.argmax().item())
-
-    center_vec = np.asarray(X_np[int(np.clip(center_rel, 0, batch_sz - 1))], dtype=np.float32)
-    X_np, pc, cr = _finalize_diversified_batch(
-        net,
-        X_all,
-        fill_pool,
-        center_vec,
-        batch_sz,
-        center_rel,
-        rng,
-        benign_proto=benign_proto,
-        non_attack_id=sid,
-    )
-    pred_id = int(pc.argmax().item())
+    # Also keep a simple per-window vote signal for traceability.
+    attack_vote_ratio = float((vote_ids != sid).float().mean().item())
 
     pred_name = names[pred_id] if 0 <= pred_id < len(names) else str(pred_id)
     detected_attack = pred_id != sid
@@ -514,10 +380,11 @@ def _simulate_uav_edge(
         "drew_attack_pool": from_attack_pool,
         "true_label": true_name,
         "batch_size": int(X_np.shape[0]),
-        "center_batch_index": int(cr),
+        "center_batch_index": int(center_rel),
         "prediction": display_pred,
         "attack_detected": detected_attack,
         "attack_label": attack_name,
+        "attack_vote_ratio": attack_vote_ratio,
         "alignment_iters": int(align_loops),
         "inference_mode": inference_mode,
     }
@@ -547,6 +414,15 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
     feat_std = _feature_stds(X_all)
     lim_lo = float(np.quantile(X_all.astype(np.float64), 0.005))
     lim_hi = float(np.quantile(X_all.astype(np.float64), 0.995))
+    # Add light Gaussian noise on telemetry channels only. This keeps the IDS
+    # feature semantics stable while still simulating onboard measurement noise.
+    X_noisy_all = np.asarray(X_all, dtype=np.float32).copy()
+    for ci in (TELEM_BATTERY_IDX, TELEM_CPU_IDX):
+        if 0 <= int(ci) < X_noisy_all.shape[-1]:
+            ch_std = max(float(feat_std[int(ci)]), 1e-3)
+            eps = rng.standard_normal(X_noisy_all[:, :, int(ci)].shape).astype(np.float32)
+            X_noisy_all[:, :, int(ci)] += eps * (0.05 * ch_std)
+    X_noisy_all = np.clip(X_noisy_all, lim_lo, lim_hi).astype(np.float32)
 
     ckpt = _load_checkpoint_list()
     net = CnnLstmIDS(n_features=n_features, num_classes=num_classes)
@@ -560,36 +436,8 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
 
     net.eval()
     lid_normal = meta_label_id(meta, "Normal")
-    ref_b = int(np.clip(min(32, len(X_all)), 16, 64))
-    ref_b = min(ref_b, len(X_all))
-    ref_cr = min(max(ref_b // 2, 0), ref_b - 1)
     non_attack_id = int(_infer_non_attack_argmax(net, X_all, y_all, lid_normal))
     sid_name = names[non_attack_id] if 0 <= non_attack_id < len(names) else str(non_attack_id)
-    pool_benign_m, pool_attack_m = _collect_model_pools(
-        net,
-        X_all,
-        non_attack_id,
-        rng,
-        batch_sz=ref_b,
-        center_rel=ref_cr,
-        max_probe=10000,
-        cap_each=500,
-    )
-    if pool_benign_m.size == 0 or pool_attack_m.size == 0:
-        pool_benign_m, pool_attack_m = _collect_model_pools(
-            net,
-            X_all,
-            non_attack_id,
-            rng,
-            batch_sz=ref_b,
-            center_rel=ref_cr,
-            max_probe=45000,
-            cap_each=2000,
-        )
-    if pool_benign_m.size == 0 or pool_attack_m.size == 0:
-        raise RuntimeError(
-            "Could not build model-calibrated benign/attack window pools; try another checkpoint or seed."
-        )
 
     uav_results: list[dict[str, Any]] = []
     for uid in range(N_EDGE_UAVS):
@@ -603,13 +451,9 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
                 meta=meta,
                 names=names,
                 X_all=X_all,
+                X_noisy_all=X_noisy_all,
                 y_all=y_all,
                 non_attack_id=non_attack_id,
-                pool_benign_model=pool_benign_m,
-                pool_attack_model=pool_attack_m,
-                feat_std=feat_std,
-                lim_lo=lim_lo,
-                lim_hi=lim_hi,
             )
         )
 
@@ -666,7 +510,8 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
             f"无人机{u['uav_id']}：新生成 {u['batch_size']} 窗，原型{u['prototype_index']}「{u['true_label']}」（{slzh}），推理 {u['inference_mode']}。"
         )
         lines_en_tr.append(
-            f"UAV {u['uav_id']}: regenerated {u['batch_size']} windows, prototype {u['prototype_index']} «{u['true_label']}» ({slen}), {u['inference_mode']}."
+            f"UAV {u['uav_id']}: windows={u['batch_size']}, sample={u['prototype_index']}, "
+            f"label={u['true_label']} ({slen}), mode={u['inference_mode']}."
         )
 
     lines_zh_v: list[str] = []
@@ -683,7 +528,7 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
     tc_zh = "；".join(
         [f"UAV{int(tr['uav_id'])}威胁 {tr['threat_before']:.3f}→{tr['threat_after']:.3f}" for tr in threat_rows]
     )
-    tc_en = "; ".join(
+    tc_en = "\n".join(
         [f"UAV{int(tr['uav_id'])} threat {tr['threat_before']:.3f}→{tr['threat_after']:.3f}" for tr in threat_rows]
     )
 
@@ -719,6 +564,7 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
                         "true_label": u["true_label"],
                         "benign_traffic_seed": u["benign_traffic_seed"],
                         "center_batch_index": u["center_batch_index"],
+                        "attack_vote_ratio": u["attack_vote_ratio"],
                         "alignment_iters": u["alignment_iters"],
                     }
                     for u in uav_results
@@ -775,9 +621,10 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
             "body_zh": "AdaptivePrivacyController 在收到各机 IDS 上报后，按更新后的威胁度上下文独立给出下一轮 participate / noise_scale / freq_n。"
             f"policy_before 与步骤①中的 fit_config 逐项一致，表示上报前各机已在执行的策略；policy_after 为 APC 新策略。"
             f"威胁演变：{tc_zh}。",
-            "body_en": "AdaptivePrivacyController emits next-round participate / noise_scale / freq_n per UAV from post-uplink threat context. "
-            f"policy_before matches step① fit_config (in-flight policy before this uplink); policy_after is the new APC output. "
-            f"Threat deltas: {tc_en}.",
+            "body_en": "AdaptivePrivacyController emits per-UAV next-round participate / noise_scale / freq_n from post-uplink threat context.\n"
+            "policy_before matches step ① fit_config (in-flight policy before this uplink).\n"
+            "policy_after is the new APC output.\n"
+            f"Threat deltas:\n{tc_en}",
             "kv": {
                 "edge_uav_count": N_EDGE_UAVS,
                 "threat_per_uav": threat_rows,
@@ -809,6 +656,7 @@ def run_uav_workflow(*, mode: str = "auto", seed: int | None = None) -> dict[str
                 "true_label": u["true_label"],
                 "prototype_index": u["prototype_index"],
                 "benign_traffic_seed": u["benign_traffic_seed"],
+                "attack_vote_ratio": u["attack_vote_ratio"],
             }
             for u in uav_results
         ],

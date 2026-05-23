@@ -909,6 +909,7 @@ code {
   width: 100%;
   min-height: 320px;
   margin: 0.5rem 0 1rem;
+  position: relative;
   border-radius: 3px;
   border: 1px solid var(--stroke);
   background: linear-gradient(180deg, rgba(6, 14, 28, 0.55), rgba(4, 8, 16, 0.92));
@@ -1033,6 +1034,44 @@ code {
     filter 0.35s ease;
 }
 
+.workflow-scene-svg .wf-edge[data-edge-tip]:hover,
+.workflow-scene-svg .wf-edge.is-hover {
+  stroke: #f8fafc !important;
+  stroke-width: 4 !important;
+  filter: drop-shadow(0 0 6px rgba(248, 250, 252, 0.55));
+}
+
+.workflow-scene-svg .wf-edge-hit {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.001);
+  stroke-width: 16;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.workflow-edge-tip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.12s ease;
+  max-width: min(72vw, 320px);
+  padding: 0.4rem 0.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: 4px;
+  background: rgba(6, 12, 24, 0.94);
+  color: #cbd5e1;
+  font-size: 11px;
+  line-height: 1.35;
+  font-family: var(--font-mono), monospace;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.55);
+}
+
+.workflow-edge-tip.is-show {
+  opacity: 1;
+}
+
 .workflow-scene-svg .wf-edge-label {
   fill: #94a3b8;
   font-size: 10px;
@@ -1127,6 +1166,9 @@ code {
 
 .workflow-run-wrap {
   margin: 0.75rem 0 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
 .workflow-legend {

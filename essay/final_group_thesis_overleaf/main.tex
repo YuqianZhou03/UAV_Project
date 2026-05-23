@@ -1,0 +1,286 @@
+% EEEN3010J / IoTE Stage 4 — Final Group Thesis (handbook Sec. 3)
+% Overleaf: Menu -> Compiler = pdfLaTeX; build uses biber automatically when biblatex is detected.
+\documentclass[11pt,a4paper,oneside]{report}
+
+\usepackage{csquotes}
+\usepackage[a4paper,margin=2.54cm]{geometry}
+\usepackage{setspace}
+\singlespacing
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink]{cleveref}
+
+% IEEE numeric citations (handbook Sec. 3.1)
+\usepackage[style=ieee,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Adjust line spacing in floats if needed (single-spaced body already)
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+
+% PDF metadata (title page layout is custom below)
+\title{A Federated Intrusion Detection Mechanism with Adaptive Privacy for UAV Swarms}
+\author{Li Yan; Zhou Yuqian; Liu Guixin; Zhang Wenyue}
+\date{30 May 2026}
+
+\begin{document}
+
+% Title-page rule width and colour
+\newcommand{\titlepagerule}{%
+  \noindent\textcolor{black!42}{\rule{0.76\textwidth}{1.15pt}}%
+}
+
+\begin{titlepage}
+  \thispagestyle{empty}
+  % Institution logos
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, inner sep=0] at ([shift={(1.4cm,-1.1cm)}]current page.north west) {%
+      \includegraphics[height=2.4cm]{logos/ucd_logo.jpg}\hspace{0.5cm}%
+      \includegraphics[height=2.4cm]{logos/bjut_logo.pdf}%
+    };
+  \end{tikzpicture}
+
+  \vspace*{3.25cm}
+  \begin{center}
+    % Programme (secondary)
+    {\large\bfseries BE (Internet of Things Engineering)}\\[0.4em]
+    {\small\color{black!58}%
+      Academic Year 2025/26\quad\textbar\quad Module EEEN3010J}\\[1.35em]
+
+    % Document type (tertiary — smaller than main title)
+    {\large\bfseries Stage 4 Project Group Thesis}\\[1.15em]
+
+    \titlepagerule\\[1.1em]
+
+    % Main project title (primary)
+    {\fontsize{19.5}{25}\selectfont\bfseries
+      A Federated Intrusion Detection Mechanism with\\[0.3em]
+      Adaptive Privacy for UAV Swarms}\\[1.1em]
+
+    \titlepagerule
+  \end{center}
+
+  % Fixed gap instead of \vfill — avoids a large empty band mid-page
+  \vspace{2.6em}
+
+  \begin{center}
+    {\normalsize\bfseries\color{black!80}Group members}\\[0.65em]
+    \begin{minipage}{0.48\textwidth}
+      \centering
+      \small
+      \renewcommand{\arraystretch}{1.32}%
+      \begin{tabular}{@{}l@{\hspace{2.4em}}r@{}}
+        \textbf{\color{black!55}Name} & \textbf{\color{black!55}UCD student ID} \\
+        \midrule
+        Li Yan       & 22207706 \\
+        Zhou Yuqian  & 22207690 \\
+        Liu Guixin   & 22207681 \\
+        Zhang Wenyue & 22207709 \\
+      \end{tabular}
+    \end{minipage}
+
+    \vspace{2em}
+    \titlepagerule
+    \vspace{1.35em}
+
+    {\normalsize
+      \textbf{Supervisor:}\ Dr.\ Alzubair Hassan
+      \quad\textbar\quad
+      \textbf{Submission date:}\ 30 May 2026}
+  \end{center}
+
+  \vspace*{\fill}
+\end{titlepage}
+
+% Optional: receipt / signed declaration is usually a separate sheet (Appendix A in handbook).
+% Brightspace submission uses PDF + receipt.
+
+\cleardoublepage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\noindent Unmanned Aerial Vehicle (UAV) swarms are increasingly used in surveillance, emergency response, and environmental monitoring, but their distributed and resource-constrained nature makes them vulnerable to cyber attacks such as spoofing, jamming, and coordinated communication abuse. Centralized intrusion detection is often unsuitable in this context because it requires raw data sharing, stable connectivity, and high communication bandwidth, which may conflict with mission constraints and privacy regulations. This thesis presents a federated intrusion detection mechanism with adaptive privacy for UAV swarms, combining a Federated Learning (FL) IDS pipeline, a Reinforcement Learning (RL)-based trust model, and an Adaptive Privacy Controller (APC). In the proposed framework, each UAV trains locally and shares model updates instead of raw telemetry; the RL module evaluates participant reliability and supports robust collaboration under heterogeneous and partially unreliable clients; and the APC dynamically adjusts privacy-related parameters, including participation intensity, update cadence, and perturbation level, according to real-time threat level, mission criticality, trust status, and available resources. The integrated design targets a practical balance among detection effectiveness, privacy protection, and operational efficiency. The overall implementation and evaluation demonstrate that combining FL, trust-aware coordination, and context-aware privacy adaptation provides a feasible and scalable security architecture for next-generation UAV swarm networks.
+
+\vspace{0.75em}
+\noindent\textbf{Keywords:} UAV swarms; intrusion detection; federated learning; reinforcement learning; adaptive privacy controller.
+
+\tableofcontents
+% Figures and tables: place \begin{figure}...\end{figure} / \begin{table}...\end{table}
+% in the relevant sections (no separate List of Figures/Tables).
+
+% ---------------------------------------------------------------------------
+% SHARED: Introduction (aims of the project)
+% Handbook: also disclose AI use in introduction or early if applicable (Sec.\,3.1).
+% ---------------------------------------------------------------------------
+\chapter{Introduction (Shared)}
+\label{ch:intro}
+
+\section{Project aims and scope}
+\textit{[Write here: problem statement, objectives, scope, report structure overview. Note that each technical chapter (Federated Learning, IDS, RL, APC) includes an individual-contribution statement and a domain-specific literature review.]}
+
+\section{Use of generative AI (if applicable)}
+\textit{[If you used AI: state what it was used for and summarise prompts. If not used, state that clearly or remove this section after supervisor confirmation.]}
+
+% ---------------------------------------------------------------------------
+% SHARED: Work division (+ optional high-level design)
+% ---------------------------------------------------------------------------
+\chapter{Work Division and Integration (Shared)}
+\label{ch:division}
+
+\section{Division of responsibilities}
+The project was organized around four tightly coupled technical streams that map to the core chapters of this thesis. Responsibilities were assigned by subsystem ownership, while integration, experiment execution, and documentation were carried out collaboratively.
+
+\begin{itemize}
+  \item \textbf{Li Yan (Federated Learning stream):} Led the FL backbone design and implementation, including data split orchestration and client-round mapping (\texttt{swarm\_fl\_data.py}), federated training workflow (\texttt{server.py}, \texttt{client.py}), and reproducible model checkpoint/evaluation pipeline. This stream established the end-to-end training loop used by all other modules.
+
+  \item \textbf{Zhou Yuqian (IDS stream):} Led IDS model and data pipeline work, including UAV traffic preprocessing and feature-window construction (\texttt{preprocess\_swarm\_federated.py}, \texttt{enrich\_swarm\_telemetry.py}), CNN--LSTM IDS modeling (\texttt{model.py}), and operational visualization support via the dashboard and workflow simulator (\texttt{dashboard/}, \texttt{uav\_workflow\_sim.py}).
+
+  \item \textbf{Liu Guixin (RL trust stream):} Led the trust-aware RL module design and integration, including TrustNet modeling, replay-based update logic, state/reward definitions, and the FL trust bridge for per-client trust scoring (\texttt{RL\_module/core.py}, \texttt{RL\_module/RL.py}). This stream provided adaptive trust signals for robust aggregation and policy context.
+
+  \item \textbf{Zhang Wenyue (Adaptive Privacy Controller stream):} Led APC design and implementation, including context modeling, rule-based participation/frequency/noise control, and YAML-configurable policy logic (\texttt{apc\_module/apc\_core.py}, \texttt{apc\_module/rules.py}, \texttt{apc\_module/models.py}). This stream translated mission and threat context into actionable privacy controls.
+\end{itemize}
+
+\noindent\textbf{Coordination and integration process.}  
+The team followed a weekly integration cycle: (i) subsystem-level coding and unit checks; (ii) cross-module interface alignment around shared metrics (threat, trust, resource, and privacy parameters); (iii) joint end-to-end FL runs and ablation execution (\texttt{run\_rl\_ablation.py}); and (iv) synchronized analysis and thesis writing. Final results, figures, and conclusions were validated jointly, while each member remained the primary author of their corresponding technical chapter.
+
+\section{Cross-module Integration and Orchestration}
+This section describes how the four technical modules are integrated into a closed-loop UAV swarm defense system in operational rounds. The implementation is not a loose coupling of independent scripts; instead, it is a round-based orchestration where Federated Learning (FL), IDS inference, RL trust modeling, and APC privacy control exchange structured signals at each cycle.
+
+At the start of each FL round, the server broadcasts per-client training policy through the fit-configuration stage in \texttt{server.py}. The policy includes participation flag, noise scale, update frequency, and privacy accounting fields (epsilon/delta/clip norm). On each UAV client in \texttt{client.py}, local IDS training is executed on the assigned shard. If APC policy disables participation or enforces frequency skipping, the client returns global weights directly; otherwise, it performs local optimization, clips weight deltas, and applies Gaussian perturbation to updates before uplink.
+
+After receiving client updates, the server performs trust-aware aggregation in the \texttt{RLAPCFedAvg} strategy. Effective contribution weight is computed from sample size, trust score, resource factor, and anomaly factor, which reduces the influence of suspicious or unstable clients while preserving useful contributions from reliable nodes. In parallel, centralized evaluation computes accuracy, loss, and macro precision/recall, and these metrics are transformed into global and per-client threat indicators.
+
+The RL bridge in \texttt{RL\_module/core.py} converts per-round observations into trust scores using replay-based temporal updates, and APC in \texttt{apc\_module/apc\_core.py} converts threat, mission criticality, trust, and resource context into next-round policy for each UAV. These policies are then fed back to the next round through server-side pending configuration, completing a closed decision loop. Runtime telemetry and policy outputs are serialized into live dashboard records by \texttt{dashboard\_live.py}, enabling synchronized experiment tracing and ablation comparison.
+
+\begin{figure}[htbp]
+  \centering
+  \IfFileExists{figures/system_integration_flow.png}{%
+    \includegraphics[width=0.88\textwidth]{figures/system_integration_flow.png}%
+  }{%
+    \includegraphics[width=0.88\textwidth]{C:/Users/13911/.cursor/projects/c-Users-13911-Projects-UAV-of-BDIC-2026/assets/c__Users_13911_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_image-43eede7e-3478-42ba-aabc-c900094b7c13.png}%
+  }
+  \caption{Cross-module I/O flow across FL server, UAV IDS clients, RL trust modeling, and APC policy control.}
+  \label{fig:cross_module_flow}
+\end{figure}
+
+As shown in \cref{fig:cross_module_flow}, the system-level behavior emerges from repeated policy-conditioned communication rounds rather than a one-off model pipeline. This integration pattern is essential for UAV swarm scenarios where threats, resource availability, and trustworthiness vary over time and must be reflected in both learning and privacy decisions.
+
+% ---------------------------------------------------------------------------
+% TECHNICAL CHAPTERS — one chapter per subsystem / author (min.\ $\sim$10 pages / $\sim$2500 words each per handbook guidance).
+% Chapter title = subsystem name; sections: Individual Contribution, Literature Review, Design/Implementation/Results.
+% ---------------------------------------------------------------------------
+
+\chapter{Federated Learning}
+\label{ch:fl}
+
+\section{Individual Contribution}
+\label{sec:individual-li}
+\noindent\textbf{Author:} Li Yan (UCD student ID 22207706).\\
+\textit{[Brief statement of your role, scope of this chapter, and declaration of authorship for the work below.]}
+
+\section{Literature Review}
+\label{sec:lit-li}
+\textit{[Write here: synthesis of prior work on federated learning for edge/IoT systems, UAV swarms, privacy-preserving aggregation, and related topics relevant to your implementation. Cite with IEEE numeric style, e.g.\ ``as discussed by Smith~\cite{smith2020}''.]}
+
+\section{Design, Implementation, and Results}
+\label{sec:fl-work}
+\textit{[Description of all work you carried out: Flower server/client setup, FedAvg, data splits, training configuration, results, figures, and discussion.]}
+
+% ---------------------------------------------------------------------------
+
+\chapter{Intrusion Detection System}
+\label{ch:ids}
+
+\section{Individual Contribution}
+\label{sec:individual-zhou}
+\noindent\textbf{Author:} Zhou Yuqian (UCD student ID 22207690).\\
+\textit{[Brief statement of your role, scope of this chapter, and declaration of authorship for the work below.]}
+
+\section{Literature Review}
+\label{sec:lit-zhou}
+\textit{[Write here: synthesis of prior work on UAV network intrusion detection, CNN/LSTM or hybrid models for IDS, datasets such as UAV-NIDD, and federated IDS evaluation. Cite with IEEE numeric style.]}
+
+\section{Design, Implementation, and Results}
+\label{sec:ids-work}
+\textit{[Description of preprocessing, model architecture, training/evaluation, metrics, figures, tables, and limitations.]}
+
+% ---------------------------------------------------------------------------
+
+\chapter{Reinforcement Learning}
+\label{ch:rl}
+
+\section{Individual Contribution}
+\label{sec:individual-liu}
+\noindent\textbf{Author:} Liu Guixin (UCD student ID 22207681).\\
+\textit{[Brief statement of your role, scope of this chapter, and declaration of authorship for the work below.]}
+
+\section{Literature Review}
+\label{sec:lit-liu}
+\textit{[Write here: synthesis of prior work on reinforcement learning for trust, participation control, or adaptive policies in federated or distributed systems relevant to your RL module. Cite with IEEE numeric style.]}
+
+\section{Design, Implementation, and Results}
+\label{sec:rl-work}
+\textit{[Description of state/action/reward design, training procedure, integration with the swarm, results, and comparison to related approaches.]}
+
+% ---------------------------------------------------------------------------
+
+\chapter{Adaptive Privacy Controller}
+\label{ch:apc}
+
+\section{Individual Contribution}
+\label{sec:individual-zhang}
+\noindent\textbf{Author:} Zhang Wenyue (UCD student ID 22207709).\\
+\textit{[Brief statement of your role, scope of this chapter, and declaration of authorship for the work below.]}
+
+\section{Literature Review}
+\label{sec:lit-zhang}
+\textit{[Write here: synthesis of prior work on adaptive privacy, differential privacy in federated learning, threat-aware participation, and policy/rule-based controllers in IoT security. Cite with IEEE numeric style.]}
+
+\section{Design, Implementation, and Results}
+\label{sec:apc-work}
+\textit{[Description of APC rules, threat metrics, interaction with FL/RL, configuration, evaluation, and conclusions for your contribution.]}
+
+% ---------------------------------------------------------------------------
+% SHARED: Overall discussion and conclusions
+% ---------------------------------------------------------------------------
+\chapter{Overall Discussion and Conclusions (Shared)}
+\label{ch:overall}
+
+\textit{[Write here: integrated discussion across the group; overall conclusions.]}
+
+% ---------------------------------------------------------------------------
+% SHARED: Future work
+% ---------------------------------------------------------------------------
+\chapter{Suggestions for Future Work (Shared)}
+\label{ch:future}
+
+\textit{[Write here: possible extensions, open problems, next steps.]}
+
+% ---------------------------------------------------------------------------
+% SHARED: References (IEEE) — all authors cite into the same bibliography
+% ---------------------------------------------------------------------------
+\printbibliography[heading=bibintoc,title={References (IEEE)}]
+
+% ---------------------------------------------------------------------------
+% Appendices: shared and/or individual (lengthy derivations, code listings, extra data)
+% ---------------------------------------------------------------------------
+\appendix
+
+\chapter{Appendices (Shared and/or Individual)}
+\label{app:main}
+
+\textit{[Label appendix material clearly as shared vs.\ which author; e.g.\ split into App.\,A shared maths, App.\,B individual code.]}
+
+\end{document}

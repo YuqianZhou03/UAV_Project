@@ -1,5 +1,5 @@
 /**
- * FL-UAV dashboard (English): overview, dataset pipeline story, workflow sim. Data: ../data/rounds_en.json
+ * FL-UAV dashboard (English): dataset pipeline story, workflow sim. Data: ../data/rounds_en.json
  */
 
 const pct = (x) => `${(x * 100).toFixed(2)}%`;
@@ -14,8 +14,8 @@ function fmtKvNumber(x) {
 }
 
 let payload = null;
-/** @type {'overview' | 'dataset' | 'workflow'} */
-let activeView = "overview";
+/** @type {'dataset' | 'workflow'} */
+let activeView = "dataset";
 /** @type {ReturnType<typeof setTimeout>[]} */
 let _wfAnimTimers = [];
 
@@ -218,10 +218,8 @@ function renderGlossary(glossary) {
 }
 
 function setMainPanels(view) {
-  const isOverview = view === "overview";
   const isWorkflow = view === "workflow";
   const isDataset = view === "dataset";
-  document.getElementById("viewOverview").classList.toggle("is-hidden", !isOverview);
   const ds = document.getElementById("viewDataset");
   if (ds) ds.classList.toggle("is-hidden", !isDataset);
   const wf = document.getElementById("viewWorkflow");
@@ -356,7 +354,7 @@ function renderWorkflowBaseDiagram(langZh) {
       }
     : {
         leg: "Three edge UAVs ⟷ federated server: config · local IDS · uplink · APC feedback",
-        idle: 'Click "Run full workflow once" to play the animation',
+        idle: 'Use steps ①→③ to run the workflow',
         srv: "Federated server",
         sub: "Flower · gRPC",
         apc: "APC",
@@ -406,26 +404,83 @@ function renderWorkflowBaseDiagram(langZh) {
   </g>
 
   <g class="wf-phase wf-phase-config">
-    <path class="wf-edge wf-e-c0" d="M 664 150 C 500 90, 200 120, 110 292" marker-end="url(#wfmCfg)"/>
-    <path class="wf-edge wf-e-c1" d="M 664 175 C 520 130, 300 140, 270 292" marker-end="url(#wfmCfg)"/>
-    <path class="wf-edge wf-e-c2" d="M 664 200 C 560 170, 400 160, 430 292" marker-end="url(#wfmCfg)"/>
+    <path class="wf-edge wf-e-c0" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV0）：participate, noise_scale, freq_n" : "Downlink params (UAV0): participate, noise_scale, freq_n")}" d="M 664 150 C 500 90, 200 120, 110 292" marker-end="url(#wfmCfg)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-c0" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV0）：participate, noise_scale, freq_n" : "Downlink params (UAV0): participate, noise_scale, freq_n")}" d="M 664 150 C 500 90, 200 120, 110 292"/>
+    <path class="wf-edge wf-e-c1" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV1）：participate, noise_scale, freq_n" : "Downlink params (UAV1): participate, noise_scale, freq_n")}" d="M 664 175 C 520 130, 300 140, 270 292" marker-end="url(#wfmCfg)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-c1" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV1）：participate, noise_scale, freq_n" : "Downlink params (UAV1): participate, noise_scale, freq_n")}" d="M 664 175 C 520 130, 300 140, 270 292"/>
+    <path class="wf-edge wf-e-c2" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV2）：participate, noise_scale, freq_n" : "Downlink params (UAV2): participate, noise_scale, freq_n")}" d="M 664 200 C 560 170, 400 160, 430 292" marker-end="url(#wfmCfg)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-c2" data-edge-tip="${escapeHtml(zh ? "下发参数（UAV2）：participate, noise_scale, freq_n" : "Downlink params (UAV2): participate, noise_scale, freq_n")}" d="M 664 200 C 560 170, 400 160, 430 292"/>
     <text class="wf-edge-label" x="340" y="102">${escapeHtml(t.lCfg)}</text>
   </g>
   <g class="wf-phase wf-phase-uplink">
-    <path class="wf-edge wf-e-u0" d="M 130 285 Q 420 160 806 198" marker-end="url(#wfmUp)"/>
-    <path class="wf-edge wf-e-u1" d="M 290 285 Q 460 175 806 210" marker-end="url(#wfmUp)"/>
-    <path class="wf-edge wf-e-u2" d="M 450 285 Q 500 210 806 222" marker-end="url(#wfmUp)"/>
+    <path class="wf-edge wf-e-u0" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV0）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV0): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 130 285 Q 420 160 806 198" marker-end="url(#wfmUp)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-u0" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV0）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV0): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 130 285 Q 420 160 806 198"/>
+    <path class="wf-edge wf-e-u1" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV1）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV1): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 290 285 Q 460 175 806 210" marker-end="url(#wfmUp)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-u1" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV1）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV1): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 290 285 Q 460 175 806 210"/>
+    <path class="wf-edge wf-e-u2" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV2）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV2): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 450 285 Q 500 210 806 222" marker-end="url(#wfmUp)"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-u2" data-edge-tip="${escapeHtml(zh ? "上行参数（UAV2）：attack_detected, prediction, attack_label, attack_vote_ratio" : "Uplink params (UAV2): attack_detected, prediction, attack_label, attack_vote_ratio")}" d="M 450 285 Q 500 210 806 222"/>
     <text class="wf-edge-label wf-edge-label-up" x="420" y="150">${escapeHtml(t.lUp)}</text>
   </g>
   <g class="wf-phase wf-phase-return">
-    <path class="wf-edge wf-e-r0" d="M 806 248 C 480 400, 220 360, 130 318"/>
-    <path class="wf-edge wf-e-r1" d="M 806 258 C 500 410, 300 368, 290 318"/>
-    <path class="wf-edge wf-e-r2" d="M 806 268 C 540 418, 420 378, 450 318"/>
+    <path class="wf-edge wf-e-r0" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV0）：participate, noise_scale, freq_n" : "Return params (UAV0): participate, noise_scale, freq_n")}" d="M 806 248 C 480 400, 220 360, 130 318"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-r0" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV0）：participate, noise_scale, freq_n" : "Return params (UAV0): participate, noise_scale, freq_n")}" d="M 806 248 C 480 400, 220 360, 130 318"/>
+    <path class="wf-edge wf-e-r1" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV1）：participate, noise_scale, freq_n" : "Return params (UAV1): participate, noise_scale, freq_n")}" d="M 806 258 C 500 410, 300 368, 290 318"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-r1" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV1）：participate, noise_scale, freq_n" : "Return params (UAV1): participate, noise_scale, freq_n")}" d="M 806 258 C 500 410, 300 368, 290 318"/>
+    <path class="wf-edge wf-e-r2" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV2）：participate, noise_scale, freq_n" : "Return params (UAV2): participate, noise_scale, freq_n")}" d="M 806 268 C 540 418, 420 378, 450 318"/>
+    <path class="wf-edge-hit" data-hit-for="wf-e-r2" data-edge-tip="${escapeHtml(zh ? "回注参数（UAV2）：participate, noise_scale, freq_n" : "Return params (UAV2): participate, noise_scale, freq_n")}" d="M 806 268 C 540 418, 420 378, 450 318"/>
     <text class="wf-edge-label" x="520" y="408">${escapeHtml(t.lRet)}</text>
   </g>
   <text class="wf-edge-label wf-loc-hint" x="270" y="402">${escapeHtml(t.lLoc)}</text>
 </svg>`;
+  bindWorkflowEdgeTooltips();
   host.classList.remove("workflow-scene-host--error");
+}
+
+function bindWorkflowEdgeTooltips() {
+  const host = document.getElementById("workflowSceneHost");
+  if (!host) return;
+  let tip = host.querySelector(".workflow-edge-tip");
+  if (!tip) {
+    tip = document.createElement("div");
+    tip.className = "workflow-edge-tip";
+    host.appendChild(tip);
+  }
+  const setHover = (edge, on) => {
+    const k = edge.getAttribute("data-hit-for");
+    const target = k ? host.querySelector(`.wf-edge.${k}`) : edge;
+    if (!target) return;
+    target.classList.toggle("is-hover", !!on);
+  };
+  const hide = () => tip.classList.remove("is-show");
+  const move = (ev) => {
+    const rect = host.getBoundingClientRect();
+    const w = tip.offsetWidth || 220;
+    const h = tip.offsetHeight || 48;
+    const maxX = Math.max(8, rect.width - w - 8);
+    const maxY = Math.max(8, rect.height - h - 8);
+    const x = Math.min(maxX, Math.max(8, ev.clientX - rect.left + 12));
+    const y = Math.min(maxY, Math.max(8, ev.clientY - rect.top + 12));
+    tip.style.left = `${x}px`;
+    tip.style.top = `${y}px`;
+  };
+  host.querySelectorAll(".wf-edge[data-edge-tip], .wf-edge-hit[data-edge-tip]").forEach((edge) => {
+    edge.style.cursor = "pointer";
+    edge.addEventListener("mouseenter", (ev) => {
+      setHover(edge, true);
+      tip.textContent = edge.getAttribute("data-edge-tip") || "";
+      tip.classList.add("is-show");
+      move(ev);
+    });
+    edge.addEventListener("mousemove", move);
+    edge.addEventListener("mouseleave", () => {
+      setHover(edge, false);
+      hide();
+    });
+  });
+  host.querySelector(".workflow-scene-svg")?.addEventListener("mouseleave", () => {
+    host.querySelectorAll(".wf-edge.is-hover").forEach((el) => el.classList.remove("is-hover"));
+    hide();
+  });
 }
 
 function animateWorkflowDiagram(data, langZh) {
@@ -561,14 +616,39 @@ function applyWorkflow() {
     st.textContent = "";
     st.classList.remove("is-error");
   }
+  ["workflowStartServerBtn", "workflowStartClientsBtn", "workflowTrainBtn"].forEach((id) => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = false;
+  });
   renderWorkflowBaseDiagram(false);
+}
+
+function renderWorkflowStepCards(steps, data, langZh, append = false) {
+  const host = document.getElementById("workflowSteps");
+  if (!host) return;
+  const html = (steps || [])
+    .map((s) => {
+      const title = langZh ? s.title_zh : s.title_en;
+      const body = langZh ? s.body_zh : s.body_en;
+      const bodyHtml = escapeHtml(body || "").replace(/\n/g, "<br/>");
+      let kv = "";
+      if (s.kv && typeof s.kv === "object") {
+        const cleaned = sanitizeWorkflowStepKv(s, data || {}, langZh) || s.kv;
+        if (cleaned && typeof cleaned === "object" && Object.keys(cleaned).length > 0) {
+          kv = renderStructuredKv(cleaned);
+        }
+      }
+      return `<article class="workflow-step"><h4>${escapeHtml(title || "")}</h4><p class="workflow-step-body">${bodyHtml}</p>${kv}</article>`;
+    })
+    .join("");
+  if (append) host.insertAdjacentHTML("beforeend", html);
+  else host.innerHTML = html;
 }
 
 function renderWorkflowResult(data, langZh) {
   const st = document.getElementById("workflowStatus");
-  const host = document.getElementById("workflowSteps");
   const scene = document.getElementById("workflowSceneHost");
-  if (!st || !host) return;
+  if (!st) return;
   if (!data.ok) {
     st.textContent = (langZh ? "错误：" : "Error: ") + (data.error || "—");
     st.classList.add("is-error");
@@ -577,11 +657,8 @@ function renderWorkflowResult(data, langZh) {
       renderWorkflowBaseDiagram(langZh);
       setWorkflowCaption(langZh, langZh ? "模拟失败 — 请检查终端或依赖数据" : "Simulation failed — check console / data");
     }
-    if (data.traceback) {
-      host.innerHTML = renderTracebackPanel(data.traceback, langZh);
-    } else {
-      host.innerHTML = "";
-    }
+    const host = document.getElementById("workflowSteps");
+    if (host) host.innerHTML = data.traceback ? renderTracebackPanel(data.traceback, langZh) : "";
     return;
   }
   if (scene) scene.classList.remove("workflow-scene-host--error");
@@ -610,32 +687,34 @@ function renderWorkflowResult(data, langZh) {
     ? `推理：${mode}${calLine} · 任一架告警：${atk ? "是" : "否"}${label ? " · " + label : ""}${fleetExtra}${runExtra}`
     : `Inference: ${mode}${calLine} · Any alert: ${atk ? "yes" : "no"}${label ? " · " + label : ""}${fleetExtra}${runExtra}`;
 
-  host.innerHTML = (data.steps || [])
-    .map((s) => {
-      const title = langZh ? s.title_zh : s.title_en;
-      const body = langZh ? s.body_zh : s.body_en;
-      const bodyHtml = escapeHtml(body || "").replace(/\n/g, "<br/>");
-      let kv = "";
-      if (s.kv && typeof s.kv === "object") {
-        const cleaned = sanitizeWorkflowStepKv(s, data, langZh);
-        if (cleaned && typeof cleaned === "object" && Object.keys(cleaned).length > 0) {
-          kv = renderStructuredKv(cleaned);
-        }
-      }
-      return `<article class="workflow-step"><h4>${escapeHtml(title || "")}</h4><p class="workflow-step-body">${bodyHtml}</p>${kv}</article>`;
-    })
-    .join("");
+  renderWorkflowStepCards(data.steps || [], data, langZh, false);
   animateWorkflowDiagram(data, langZh);
 }
 
-async function runWorkflowSimulation(langZh) {
-  const btn = document.getElementById("workflowRunBtn");
+async function runWorkflowStage(action, langZh) {
+  const btnMap = {
+    start_server: "workflowStartServerBtn",
+    start_clients: "workflowStartClientsBtn",
+    start_training: "workflowTrainBtn",
+  };
+  const btn = document.getElementById(btnMap[action] || "");
   if (!btn) return;
   btn.disabled = true;
-  clearWorkflowAnimTimers();
-  renderWorkflowBaseDiagram(langZh);
+  if (action === "start_server") {
+    clearWorkflowAnimTimers();
+    renderWorkflowBaseDiagram(langZh);
+    const host = document.getElementById("workflowSteps");
+    const st = document.getElementById("workflowStatus");
+    if (host) host.innerHTML = "";
+    if (st) {
+      st.textContent = "";
+      st.classList.remove("is-error");
+    }
+  }
   try {
-    const res = await fetch(`/api/uav-workflow?mode=auto&_=${Date.now()}`, { cache: "no-store" });
+    const res = await fetch(`/api/fl-control?action=${encodeURIComponent(action)}&mode=auto&_=${Date.now()}`, {
+      cache: "no-store",
+    });
     const text = await res.text();
     let data;
     try {
@@ -645,15 +724,47 @@ async function runWorkflowSimulation(langZh) {
       const looksHtml = t.startsWith("<") || t.toLowerCase().includes("<!doctype");
       const msg = langZh
         ? looksHtml
-          ? `HTTP ${res.status}：返回了网页而不是 JSON，说明当前站点没有提供 /api/uav-workflow。请在仓库根目录执行「python dashboard/serve.py」再打开终端里打印的地址（不要用「python -m http.server」）。若 8765 已被占用，请先结束占用进程或设置环境变量 DASHBOARD_PORT 换端口。`
+          ? `HTTP ${res.status}：返回了网页而不是 JSON，说明当前站点没有提供 /api/fl-control。请在仓库根目录执行「python dashboard/serve.py」再打开终端里打印的地址。`
           : `HTTP ${res.status}：响应不是合法 JSON。开头：${t.slice(0, 96).replace(/\s+/g, " ")}`
         : looksHtml
-          ? `HTTP ${res.status}: received HTML, not JSON — /api/uav-workflow is not available. Run \`python dashboard/serve.py\` from the repo root (not \`python -m http.server\`). If port 8765 is busy, free it or set DASHBOARD_PORT.`
+          ? `HTTP ${res.status}: received HTML, not JSON — /api/fl-control is not available. Run \`python dashboard/serve.py\` from the repo root.`
           : `HTTP ${res.status}: body is not valid JSON. Start: ${t.slice(0, 96).replace(/\s+/g, " ")}`;
       renderWorkflowResult({ ok: false, error: msg }, langZh);
       return;
     }
-    renderWorkflowResult(data, langZh);
+    const st = document.getElementById("workflowStatus");
+    if (action === "start_training") {
+      clearWorkflowAnimTimers();
+      renderWorkflowBaseDiagram(langZh);
+      renderWorkflowResult(data, langZh);
+    } else {
+      if (st) {
+        st.classList.remove("is-error");
+        if (action === "start_server") {
+          st.textContent = "Server terminal started.";
+        } else if (action === "start_clients") {
+          st.textContent = "Three UAV terminals started.";
+        } else {
+          st.textContent = "Step finished.";
+        }
+      }
+      if (data.phase_step) renderWorkflowStepCards([data.phase_step], data, langZh, true);
+      const host = document.getElementById("workflowSceneHost");
+      if (host) {
+        if (action === "start_server") {
+          host.querySelector(".wf-phase-config")?.classList.add("wf-phase--active");
+          setWorkflowCaption(langZh, langZh ? "① 服务器已启动，等待三机连接…" : "① Server started, waiting for UAV clients…");
+        } else if (action === "start_clients") {
+          host.querySelector(".wf-phase-config")?.classList.remove("wf-phase--active");
+          host.querySelector("#wf-drones")?.classList.add("wf-phase--active");
+          host.querySelectorAll(".wf-drone").forEach((d) => d.classList.add("wf-drone--scan"));
+          setWorkflowCaption(
+            langZh,
+            langZh ? "② 三机终端已启动，准备训练…" : "② Three UAV terminals started, ready for training…",
+          );
+        }
+      }
+    }
   } catch (e) {
     renderWorkflowResult({ ok: false, error: String(e) }, langZh);
   } finally {
@@ -761,14 +872,6 @@ function renderTheatres() {
   });
 }
 
-function applyOverview() {
-  activeView = "overview";
-  setMainPanels("overview");
-  navSetActive("overview");
-  injectArchDiagram();
-  renderTheatres();
-}
-
 function latestDemoRound() {
   const rs = payload?.rounds;
   if (!Array.isArray(rs) || rs.length === 0) return null;
@@ -811,17 +914,9 @@ function bindNavButtons() {
   const host = document.getElementById("roundButtons");
   host.innerHTML = "";
 
-  const ov = document.createElement("button");
-  ov.type = "button";
-  ov.className = "round-btn active";
-  ov.dataset.view = "overview";
-  ov.textContent = "Overview";
-  ov.addEventListener("click", () => applyOverview());
-  host.appendChild(ov);
-
   const ds = document.createElement("button");
   ds.type = "button";
-  ds.className = "round-btn";
+  ds.className = "round-btn active";
   ds.dataset.view = "dataset";
   ds.textContent = "Dataset";
   ds.title = "UAV-NIDD provenance, cleaning, CNN+LSTM inputs, demo accuracy";
@@ -869,11 +964,15 @@ async function init() {
       /* keep bundled demo rounds */
     }
 
-    const wbtn = document.getElementById("workflowRunBtn");
-    if (wbtn) wbtn.addEventListener("click", () => runWorkflowSimulation(false));
+    const b1 = document.getElementById("workflowStartServerBtn");
+    if (b1) b1.addEventListener("click", () => runWorkflowStage("start_server", false));
+    const b2 = document.getElementById("workflowStartClientsBtn");
+    if (b2) b2.addEventListener("click", () => runWorkflowStage("start_clients", false));
+    const b3 = document.getElementById("workflowTrainBtn");
+    if (b3) b3.addEventListener("click", () => runWorkflowStage("start_training", false));
   } catch (e) {
     document.getElementById("mainContent").innerHTML =
-      `<div class="panel"><p class="panel-lead">Could not load <code>../data/rounds_en.json</code>. Run <code>python dashboard/serve.py</code> from the <code>dashboard</code> folder and open <code>http://127.0.0.1:8765/en/</code> (includes <code>/api/uav-workflow</code>).</p><p class="tiny mono">${escapeHtml(String(e))}</p></div>`;
+      `<div class="panel"><p class="panel-lead">Could not load <code>../data/rounds_en.json</code>. Run <code>python dashboard/serve.py</code> from the repository root and open <code>http://127.0.0.1:8765/en/</code> (includes <code>/api/fl-control</code>).</p><p class="tiny mono">${escapeHtml(String(e))}</p></div>`;
     return;
   }
 
@@ -885,7 +984,7 @@ async function init() {
   renderGlossary(payload.glossary);
   bindNavButtons();
   bindHintButtons();
-  applyOverview();
+  applyDataset();
 }
 
 init();

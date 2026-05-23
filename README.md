@@ -19,6 +19,44 @@ English: research-style codebase for **federated learning** on **windowed UAV/ID
 
 ---
 
+## End-to-end loop (module I/O)
+
+The runtime loop is implemented as a **closed control cycle** rather than a one-way train script:
+
+1. **Server policy broadcast** (`server.py`)  
+   Sends per-client `participate`, `noise_scale`, `freq_n`, and privacy fields (`epsilon`, `delta`, `clip_norm`).
+2. **UAV local update** (`client.py`)  
+   Each client trains on its shard (or skips based on APC policy), then clips and optionally perturbs weight deltas.
+3. **Trust-aware aggregation** (`server.py` + `RL_module/`)  
+   Server aggregates client updates with trust/resource/anomaly-aware effective weights.
+4. **RL → APC decision** (`RL_module/core.py` + `apc_module/apc_core.py`)  
+   RL emits trust scores; APC converts context (`threat`, `mission`, `trust`, `resource`) into next-round policy.
+5. **Live trace output** (`dashboard_live.py`)  
+   Per-round metrics and policy snapshots are written to `dashboard/data/live_rounds.json`.
+
+---
+
+## 60-second quick start (Windows / PowerShell)
+
+If your Python environment is already ready and `data/swarm_processed/` exists:
+
+```powershell
+.\start_fl.ps1
+```
+
+This starts:
+- Flower server (`127.0.0.1:8080`)
+- 3 FL clients
+- dashboard server (`http://127.0.0.1:8765/`)
+
+For scripted experiment runs with ablation output:
+
+```bash
+python run_rl_ablation.py --rounds 15 --seed 2026 --local-epochs 2 --scenario iid
+```
+
+---
+
 ## Repository layout
 
 | Path | Role |
@@ -248,6 +286,17 @@ While **`server.py`** is running it writes **`dashboard/data/live_rounds.json`**
 ## Related / upstream
 
 If this work continues a fork or collaboration line, add your **paper**, **thesis**, or **upstream repo** link here.
+
+---
+
+## Thesis folder note
+
+`essay/final_group_thesis_overleaf/` contains the group thesis source (LaTeX).  
+Recommended upload flow:
+
+1. keep editable source (`main.tex`, `.bib`, logos) in git,
+2. avoid committing temporary build files (`.aux`, `.bbl`, `.log`, etc.),
+3. export final PDF separately for submission.
 
 ---
 

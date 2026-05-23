@@ -47,48 +47,11 @@
       <nav class="round-rail" aria-label="页面导航">
         <p class="rail-label">NAV</p>
         <div class="round-buttons" id="roundButtons"></div>
-        <p class="rail-hint">「系统总览」为架构与三地任务想定；「数据集」说明 UAV-NIDD 文献来源、清洗与 CNN+LSTM 输入及演示准确率；「工作流」一键调用后端 Python：拉取服务器参数 → 本地流量 IDS → 告警与上报 → APC 调整策略。</p>
+        <p class="rail-hint">「数据集」说明 UAV-NIDD 文献来源、清洗与 CNN+LSTM 输入及演示准确率；「工作流」一键调用后端 Python：拉取服务器参数 → 本地流量 IDS → 告警与上报 → APC 调整策略。</p>
       </nav>
 
       <section class="content" id="mainContent">
-        <div id="viewOverview" class="view-panel">
-          <div class="panel hero-panel overview-hero">
-            <div class="panel-corner tl"></div>
-            <div class="panel-corner tr"></div>
-            <div class="panel-corner bl"></div>
-            <div class="panel-corner br"></div>
-            <div class="hero-top">
-              <span class="tag tag-cyan">SYSTEM OVERVIEW</span>
-              <h2 class="hero-title">系统整体演示</h2>
-              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="拓扑说明">?</button>
-            </div>
-            <p class="scenario-desc overview-lead">
-              四模块闭环对应仓库中的 <span class="mono-inline">client.py</span>、<span class="mono-inline">server.py</span>（Flower
-              FedAvg + 集中式 IDS 评估）、<span class="mono-inline">RL_module</span>、<span class="mono-inline">apc_module</span>。下方为三地任务想定（WGS84
-              锚点与叙事，仅用于态势展示；训练数据见「数据集」页）。
-            </p>
-          </div>
-
-          <div class="panel arch-panel">
-            <div class="panel-head">
-              <h3>四组件数据流</h3>
-              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="说明">?</button>
-            </div>
-            <p class="panel-lead">实线为前向/交互链路；虚线为 APC 策略回注至下一轮联邦 fit 配置。</p>
-            <div class="arch-wrap" id="archDiagramHost"></div>
-          </div>
-
-          <div class="panel theatre-panel">
-            <div class="panel-head">
-              <h3>三地测试剧场</h3>
-              <button type="button" class="hint-btn" data-glossary-id="theatres" aria-label="说明">?</button>
-            </div>
-            <p class="panel-lead">三组地理锚点想定（北京、苏丹、德黑兰）：WGS84 与任务叙事用于态势与日志；IDS 张量本身来自「数据集」页所述清洗管线。</p>
-            <div class="theatre-grid" id="theatreGrid"></div>
-          </div>
-        </div>
-
-        <div id="viewDataset" class="view-panel is-hidden">
+        <div id="viewDataset" class="view-panel">
           <div class="panel hero-panel">
             <div class="panel-corner tl"></div>
             <div class="panel-corner tr"></div>
@@ -243,17 +206,19 @@
 
           <div class="panel">
             <div class="panel-head">
-              <h3>一键运行后端模拟</h3>
+              <h3>分步运行后端流程</h3>
               <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="说明">?</button>
             </div>
             <p class="panel-lead">
               必须在 <span class="mono-inline">dashboard</span> 目录启动 <code>python serve.py</code>，页面与
-              <code>/api/uav-workflow</code> 同源；仓库根目录模块 <span class="mono-inline">uav_workflow_sim.py</span> 会读取
-              <span class="mono-inline">data/swarm_processed/test.npz</span>。
+              <code>/api/fl-control</code> / <code>/api/uav-workflow</code> 同源；分步按钮会拉起服务器与三机终端，训练阶段调用
+              <span class="mono-inline">uav_workflow_sim.py</span> 读取 <span class="mono-inline">data/swarm_processed/test.npz</span>。
             </p>
             <div id="workflowSceneHost" class="workflow-scene-host" aria-label="三机与服务器交互示意"></div>
             <div class="workflow-run-wrap">
-              <button type="button" id="workflowRunBtn" class="workflow-run-btn">运行一次完整流程</button>
+              <button type="button" id="workflowStartServerBtn" class="workflow-run-btn">① 启动服务器</button>
+              <button type="button" id="workflowStartClientsBtn" class="workflow-run-btn">② 启动三架无人机</button>
+              <button type="button" id="workflowTrainBtn" class="workflow-run-btn">③ 开始训练与模拟</button>
             </div>
             <p class="workflow-legend">
               <strong>freq_n</strong>：每 <strong>N</strong> 个联邦全局轮才允许上传一次本地更新（与 <span class="mono-inline">apc_module/rules.py</span> 中 frequency 规则一致：常态多为 1，高威胁时 N 增大）。<strong>participate=0</strong>：本轮不参与聚合，仅回传全局权重。

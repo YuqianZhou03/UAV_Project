@@ -48,55 +48,12 @@
         <p class="rail-label">NAV</p>
         <div class="round-buttons" id="roundButtons"></div>
         <p class="rail-hint">
-          <strong>Overview</strong>: architecture and three mission theatres. <strong>Dataset</strong>: UAV-NIDD provenance, cleaning, CNN+LSTM inputs, and demo accuracy. <strong>Workflow</strong>: one Python simulation — server fit → local IDS → uplink → APC policy.
+          <strong>Dataset</strong>: UAV-NIDD provenance, cleaning, CNN+LSTM inputs, and demo accuracy. <strong>Workflow</strong>: one Python simulation — server fit → local IDS → uplink → APC policy.
         </p>
       </nav>
 
       <section class="content" id="mainContent">
-        <div id="viewOverview" class="view-panel">
-          <div class="panel hero-panel overview-hero">
-            <div class="panel-corner tl"></div>
-            <div class="panel-corner tr"></div>
-            <div class="panel-corner bl"></div>
-            <div class="panel-corner br"></div>
-            <div class="hero-top">
-              <span class="tag tag-cyan">SYSTEM OVERVIEW</span>
-              <h2 class="hero-title">End-to-end system walkthrough</h2>
-              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="Topology help">?</button>
-            </div>
-            <p class="scenario-desc overview-lead">
-              Four modules mirror the repo:
-              <span class="mono-inline">client.py</span>,
-              <span class="mono-inline">server.py</span> (Flower FedAvg + centralized IDS eval),
-              <span class="mono-inline">RL_module</span>, and
-              <span class="mono-inline">apc_module</span>. Below: three anchored theatres (WGS84 + narrative for situational context; training tensors are described on the <strong>Dataset</strong> tab).
-            </p>
-          </div>
-
-          <div class="panel arch-panel">
-            <div class="panel-head">
-              <h3>Four-component data flow</h3>
-              <button type="button" class="hint-btn" data-glossary-id="system-topology" aria-label="Help">?</button>
-            </div>
-            <p class="panel-lead">
-              Solid lines: forward / interactive paths. Dashed line: APC policy feedback into the next federated fit configuration.
-            </p>
-            <div class="arch-wrap" id="archDiagramHost"></div>
-          </div>
-
-          <div class="panel theatre-panel">
-            <div class="panel-head">
-              <h3>Three-theatre evaluation</h3>
-              <button type="button" class="hint-btn" data-glossary-id="theatres" aria-label="Help">?</button>
-            </div>
-            <p class="panel-lead">
-              Three anchored theatres (Beijing, Sudan, Tehran): WGS84 and narrative for maps and logs; IDS tensors come from the pipeline on the <strong>Dataset</strong> tab.
-            </p>
-            <div class="theatre-grid" id="theatreGrid"></div>
-          </div>
-        </div>
-
-        <div id="viewDataset" class="view-panel is-hidden">
+        <div id="viewDataset" class="view-panel">
           <div class="panel hero-panel">
             <div class="panel-corner tl"></div>
             <div class="panel-corner tr"></div>
@@ -232,12 +189,11 @@
               <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="Help">?</button>
             </div>
             <p class="scenario-desc overview-lead">
-              One <strong>button</strong> runs the full path in Python: pull server-side fit parameters → run local
-              <span class="mono-inline">CnnLstmIDS</span> on window tensors from
-              <span class="mono-inline">test.npz</span> (loads <span class="mono-inline">checkpoints/fl_global_last.pt</span> when present; otherwise a randomly initialized demo weight — only for flow illustration) →
-              softmax argmax yields alert vs no-alert and class → simulate uplink → call
+              The workflow now runs in <strong>three stages</strong>: start the server terminal, start three UAV terminals, then trigger training/simulation. During stage 3,
+              <span class="mono-inline">CnnLstmIDS</span> runs on window tensors from
+              <span class="mono-inline">test.npz</span> (loading <span class="mono-inline">checkpoints/fl_global_last.pt</span> when present) and then uplinks verdicts to
               <span class="mono-inline">AdaptivePrivacyController</span> for next-round
-              <code>participate</code> / <code>noise_scale</code> / <code>freq_n</code> (<code>freq_n</code> = uplink every N rounds; often <code>1</code> when threat is low, larger under stress per APC rules).
+              <code>participate</code> / <code>noise_scale</code> / <code>freq_n</code>.
             </p>
           </div>
 
@@ -247,18 +203,19 @@
               <button type="button" class="hint-btn" data-glossary-id="uav-workflow" aria-label="Help">?</button>
             </div>
             <p class="panel-lead">
-              Start <code>python serve.py</code> inside <span class="mono-inline">dashboard</span> so this page and
-              <code>/api/uav-workflow</code> share the same origin. The handler imports
+              Start <code>python dashboard/serve.py</code> from the repository root so this page and
+              <code>/api/fl-control</code> share the same origin. The handler imports
               <span class="mono-inline">uav_workflow_sim.py</span> from the repository root and reads
               <span class="mono-inline">data/swarm_processed/test.npz</span>.
             </p>
             <div id="workflowSceneHost" class="workflow-scene-host" aria-label="Three UAVs and server interaction"></div>
             <div class="workflow-run-wrap">
-              <button type="button" id="workflowRunBtn" class="workflow-run-btn">Run full workflow once</button>
+              <button type="button" id="workflowStartServerBtn" class="workflow-run-btn">① Start server</button>
+              <button type="button" id="workflowStartClientsBtn" class="workflow-run-btn">② Start 3 UAVs</button>
+              <button type="button" id="workflowTrainBtn" class="workflow-run-btn">③ Start training</button>
             </div>
             <p class="workflow-legend">
-              <strong>freq_n</strong>: allow an uplink only once every <strong>N</strong> federated rounds (see <span class="mono-inline">apc_module/rules.py</span>: benign settings often keep <code>N=1</code>; ramps up under higher threat or very low resources).
-              <strong>participate=0</strong>: skip aggregation this round and return global weights only.
+              <strong>freq_n</strong>: uplink once every <strong>N</strong> federated rounds. <strong>participate=0</strong>: skip aggregation for this round and only receive global weights.
             </p>
             <p id="workflowStatus" class="workflow-status mono tiny" aria-live="polite"></p>
             <div id="workflowSteps" class="workflow-steps"></div>
@@ -275,6 +232,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-    <script src="app.js" type="module"></script>
+    <script src="app.js?v=20260524-0156" type="module"></script>
   </body>
 </html>
