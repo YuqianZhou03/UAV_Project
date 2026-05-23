@@ -1,0 +1,279 @@
+{
+  "baseline": "no_rl",
+  "variants": {
+    "no_apc": {
+      "variant": "no_apc",
+      "round": 3,
+      "accuracy": 0.497129660178159,
+      "loss": 1.5719846487045288,
+      "precision_macro": 0.37372331749559196,
+      "recall_macro": 0.30863518076842544,
+      "trust_mean": 0.7,
+      "threat_level": 0.626276682504408,
+      "next_participate": 1,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 1,
+      "next_epsilon": 1000000.0,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 70.0,
+      "final_malicious_trust": 70.0,
+      "aggregation_mode": "plain_fedavg",
+      "duration_sec": 28.496332199982135,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.0,
+          "freq_n": 1,
+          "update_frequency": 1,
+          "epsilon": 1000000.0,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "plain_fedavg",
+        "effective_weights": {},
+        "trust_scores": {},
+        "resource_factors": {},
+        "anomaly_factors": {},
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\no_apc\\server.log",
+      "live_rounds": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\no_apc\\live_rounds.json"
+    },
+    "no_rl": {
+      "variant": "no_rl",
+      "round": 3,
+      "accuracy": 0.3669416034312108,
+      "loss": 2.096580982208252,
+      "precision_macro": 0.27469716875313366,
+      "recall_macro": 0.19873479802115374,
+      "trust_mean": 0.7,
+      "threat_level": 0.7253028312468663,
+      "next_participate": 1,
+      "next_noise_scale": 0.9999558291887632,
+      "next_freq_n": 2,
+      "next_epsilon": 1.0000441727623834,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 70.0,
+      "final_malicious_trust": 70.0,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 27.07190020001144,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 0.999624533954518,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 1.0003756070731844,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 1.0003535439768065,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 0.9996465809723619,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 0.9998894096349649,
+          "freq_n": 2,
+          "update_frequency": 2,
+          "epsilon": 1.0001106025966167,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 2020.5269458007813,
+          "0": 2020.1951080322265,
+          "1": 2018.4323715201124
+        },
+        "trust_scores": {
+          "2": 0.7,
+          "0": 0.7,
+          "1": 0.7
+        },
+        "resource_factors": {
+          "2": 0.7144720458984375,
+          "0": 0.7143547058105468,
+          "1": 0.7152719879150391
+        },
+        "anomaly_factors": {
+          "2": 1.0,
+          "0": 1.0,
+          "1": 0.9978461372332977
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\no_rl\\server.log",
+      "live_rounds": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\no_rl\\live_rounds.json"
+    },
+    "with_rl": {
+      "variant": "with_rl",
+      "round": 3,
+      "accuracy": 0.24236225668096337,
+      "loss": 2.1028940677642822,
+      "precision_macro": 0.1458828342829163,
+      "recall_macro": 0.13135327270398361,
+      "trust_mean": 0.48496997833251954,
+      "threat_level": 0.8541171657170837,
+      "next_participate": 1,
+      "next_noise_scale": 1.0341819098052356,
+      "next_freq_n": 3,
+      "next_epsilon": 0.9669478749520256,
+      "next_delta": 1e-05,
+      "next_clip_norm": 1.0,
+      "accepted_clients": 3,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 48.49675750732422,
+      "final_malicious_trust": 48.497474670410156,
+      "aggregation_mode": "trust_weighted_fedavg",
+      "duration_sec": 27.40739300000132,
+      "per_uav_next_policy": {
+        "0": {
+          "participate": 1,
+          "noise_scale": 1.033825409248501,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9672813137054842,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "1": {
+          "participate": 1,
+          "noise_scale": 1.0346099701776201,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.966547809150072,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        },
+        "2": {
+          "participate": 1,
+          "noise_scale": 1.0341103499895852,
+          "freq_n": 3,
+          "update_frequency": 3,
+          "epsilon": 0.9670147871647076,
+          "delta": 1e-05,
+          "clip_norm": 1.0
+        }
+      },
+      "aggregation": {
+        "mode": "trust_weighted_fedavg",
+        "effective_weights": {
+          "2": 1366.8156469022288,
+          "0": 1393.436326600321,
+          "1": 1395.1424817867899
+        },
+        "trust_scores": {
+          "2": 0.4828561019897461,
+          "0": 0.48282733917236326,
+          "1": 0.48279857635498047
+        },
+        "resource_factors": {
+          "2": 0.7144720458984375,
+          "0": 0.7143547058105468,
+          "1": 0.7152719879150391
+        },
+        "anomaly_factors": {
+          "2": 0.9806761449863106,
+          "0": 1.0,
+          "1": 1.0
+        },
+        "malicious_weight_share": 0.0,
+        "accepted_clients": 3
+      },
+      "server_log": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\with_rl\\server.log",
+      "live_rounds": "C:\\Users\\13911\\Projects\\UAV-of-BDIC-2026\\outputs\\rl_ablation\\20260523_150144\\with_rl\\live_rounds.json"
+    }
+  },
+  "delta_minus_baseline": {
+    "no_apc": {
+      "accuracy": 0.13018805674694822,
+      "loss": -0.5245963335037231,
+      "precision_macro": 0.0990261487424583,
+      "recall_macro": 0.10990038274727171,
+      "trust_mean": 0.0,
+      "threat_level": -0.0990261487424583,
+      "next_noise_scale": -0.9999558291887632,
+      "next_freq_n": -1.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 0.0,
+      "final_malicious_trust": 0.0
+    },
+    "no_rl": {
+      "accuracy": 0.0,
+      "loss": 0.0,
+      "precision_macro": 0.0,
+      "recall_macro": 0.0,
+      "trust_mean": 0.0,
+      "threat_level": 0.0,
+      "next_noise_scale": 0.0,
+      "next_freq_n": 0.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": 0.0,
+      "final_malicious_trust": 0.0
+    },
+    "with_rl": {
+      "accuracy": -0.12457934675024743,
+      "loss": 0.0063130855560302734,
+      "precision_macro": -0.12881433447021737,
+      "recall_macro": -0.06738152531717012,
+      "trust_mean": -0.21503002166748042,
+      "threat_level": 0.1288143344702174,
+      "next_noise_scale": 0.034226080616472365,
+      "next_freq_n": 1.0,
+      "accepted_clients": 0.0,
+      "malicious_weight_share": 0.0,
+      "mean_malicious_weight_share": 0.0,
+      "max_malicious_weight_share": 0.0,
+      "final_clean_trust_mean": -21.50324249267578,
+      "final_malicious_trust": -21.502525329589844
+    }
+  }
+}
